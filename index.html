@@ -8,10 +8,6 @@
 
     <style>
 
-        /* =========================================
-           RESET
-        ========================================= */
-
         * {
             margin: 0;
             padding: 0;
@@ -24,845 +20,489 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background:
-                linear-gradient(
-                    135deg,
-                    #f7fbff,
-                    #fffdf6,
-                    #f6f0ff
-                );
+            background: linear-gradient(135deg, #f7fbff, #fffdf6, #f6f0ff);
             color: #27364a;
             line-height: 1.6;
         }
 
-
-        /* =========================================
-           HEADER
-        ========================================= */
+        /* HEADER */
 
         header {
-            background:
-                linear-gradient(
-                    135deg,
-                    #4d8dcc,
-                    #365f91
-                );
-
+            background: linear-gradient(135deg, #4d8dcc, #365f91);
             color: white;
-
             text-align: center;
-
             padding: 55px 20px 40px;
-
             position: relative;
-
             overflow: hidden;
         }
 
-
         header::before {
             content: "✦";
-
             position: absolute;
-
             font-size: 120px;
-
             left: 5%;
-
             top: -20px;
-
             opacity: 0.15;
         }
-
 
         header::after {
             content: "✦";
-
             position: absolute;
-
             font-size: 100px;
-
             right: 5%;
-
             bottom: -20px;
-
             opacity: 0.15;
         }
 
-
         header h1 {
             font-size: 55px;
-
             letter-spacing: 3px;
-
-            text-shadow:
-                3px 3px 0 rgba(0,0,0,0.15);
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.15);
         }
-
 
         header h2 {
             font-size: 30px;
-
             margin-top: 10px;
-
             color: #ffe082;
         }
 
-
         header p {
             margin-top: 15px;
-
             font-size: 18px;
         }
 
-
-        /* =========================================
-           NAVIGATION
-        ========================================= */
+        /* NAVIGATION */
 
         nav {
             background: white;
-
             display: flex;
-
             justify-content: center;
-
             flex-wrap: wrap;
-
             gap: 10px;
-
             padding: 15px;
-
-            box-shadow:
-                0 3px 12px rgba(0,0,0,0.1);
-
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
             position: sticky;
-
             top: 0;
-
             z-index: 1000;
         }
 
-
         nav a {
             text-decoration: none;
-
             color: #365f91;
-
             background: #edf5ff;
-
             padding: 10px 20px;
-
             border-radius: 25px;
-
             font-weight: bold;
-
             transition: 0.3s;
         }
-
 
         nav a:hover {
             background: #365f91;
-
             color: white;
-
             transform: translateY(-2px);
         }
 
-
-        /* =========================================
-           CONTAINER
-        ========================================= */
-
         .container {
             width: min(1150px, 92%);
-
             margin: auto;
-
             padding: 50px 0;
         }
 
-
-        /* =========================================
-           SECTION TITLE
-        ========================================= */
-
         .section-title {
             text-align: center;
-
             margin-bottom: 35px;
         }
 
-
         .section-title h2 {
             font-size: 34px;
-
             color: #365f91;
-
             margin-bottom: 10px;
         }
 
-
         .section-title p {
             color: #667085;
-
             max-width: 700px;
-
             margin: auto;
         }
 
-
-        /* =========================================
-           INFO KPK FPB
-        ========================================= */
+        /* MATERI */
 
         .info-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(300px, 1fr));
-
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
         }
 
-
         .info-card {
             background: white;
-
             border-radius: 22px;
-
             padding: 30px;
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.08);
-
-            border-top:
-                7px solid #4d8dcc;
-
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-top: 7px solid #4d8dcc;
             transition: 0.3s;
         }
-
 
         .info-card:hover {
             transform: translateY(-6px);
         }
 
-
         .info-card h3 {
             font-size: 25px;
-
             color: #365f91;
-
             margin-bottom: 15px;
         }
-
 
         .info-card ul {
             padding-left: 20px;
         }
 
-
-        /* =========================================
-           LANGKAH
-        ========================================= */
+        /* STRATEGI */
 
         .steps-box {
             background: white;
-
             border-radius: 25px;
-
             padding: 35px;
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
-
 
         .steps-list {
             display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
-
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-
             margin-top: 25px;
         }
 
-
         .step-card {
             background: #f5f9ff;
-
-            border-left:
-                6px solid #4d8dcc;
-
+            border-left: 6px solid #4d8dcc;
             padding: 20px;
-
             border-radius: 15px;
         }
 
-
         .step-number {
             width: 40px;
-
             height: 40px;
-
             border-radius: 50%;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             background: #365f91;
-
             color: white;
-
             font-weight: bold;
-
             margin-bottom: 10px;
         }
 
-
-        /* =========================================
-           QUESTION CARD
-        ========================================= */
+        /* SOAL */
 
         .question-card {
             background: white;
-
             border-radius: 25px;
-
             margin-bottom: 30px;
-
             padding: 30px;
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.08);
-
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             transition: 0.3s;
         }
-
 
         .question-card:hover {
             transform: translateY(-3px);
         }
 
-
         .question-header {
             display: flex;
-
             gap: 20px;
-
             align-items: flex-start;
         }
 
-
         .question-number {
             min-width: 55px;
-
             height: 55px;
-
             border-radius: 15px;
-
-            background: linear-gradient(
-                135deg,
-                #4d8dcc,
-                #365f91
-            );
-
+            background: linear-gradient(135deg, #4d8dcc, #365f91);
             color: white;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             font-size: 25px;
-
             font-weight: bold;
         }
-
 
         .question-content {
             flex: 1;
         }
 
-
         .question-content h3 {
             color: #365f91;
-
             margin-bottom: 10px;
         }
-
 
         .question-content p {
             font-size: 17px;
         }
 
-
-        /* =========================================
-           BUTTON
-        ========================================= */
-
         .btn {
             border: none;
-
             padding: 12px 22px;
-
             border-radius: 25px;
-
             cursor: pointer;
-
             font-size: 16px;
-
             font-weight: bold;
-
             margin-top: 20px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #4d8dcc,
-                    #365f91
-                );
-
+            background: linear-gradient(135deg, #4d8dcc, #365f91);
             color: white;
-
             transition: 0.3s;
         }
 
-
         .btn:hover {
             transform: scale(1.05);
-
-            box-shadow:
-                0 6px 15px rgba(54,95,145,0.3);
+            box-shadow: 0 6px 15px rgba(54,95,145,0.3);
         }
-
-
-        /* =========================================
-           SOLUTION
-        ========================================= */
 
         .solution {
             display: none;
-
             margin-top: 25px;
-
             padding: 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f5f9ff,
-                    #fffdf5
-                );
-
+            background: linear-gradient(135deg, #f5f9ff, #fffdf5);
             border-radius: 20px;
-
-            border:
-                2px dashed #4d8dcc;
+            border: 2px dashed #4d8dcc;
         }
-
 
         .solution.show {
             display: block;
         }
 
-
         .solution-step {
             background: white;
-
             padding: 18px;
-
             border-radius: 15px;
-
             margin-bottom: 15px;
-
-            border-left:
-                5px solid #4d8dcc;
+            border-left: 5px solid #4d8dcc;
         }
-
 
         .solution-step h4 {
             color: #365f91;
-
             margin-bottom: 8px;
         }
 
-
-        /* =========================================
-           METHOD BUTTON
-        ========================================= */
-
-        .method-buttons {
-            display: flex;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-
-            margin-top: 10px;
-        }
-
-
-        .method-btn {
-            border: none;
-
-            padding: 10px 16px;
-
-            border-radius: 20px;
-
-            cursor: pointer;
-
-            background: #eaf3ff;
-
-            color: #365f91;
-
-            font-weight: bold;
-        }
-
-
-        .method-btn.active {
-            background: #365f91;
-
-            color: white;
-        }
-
-
-        /* =========================================
-           FACTORIZATION AREA
-        ========================================= */
-
-        .factor-area {
-            margin-top: 15px;
-
-            display: none;
-        }
-
-
-        .factor-area.show {
-            display: block;
-        }
-
-
-        /* =========================================
-           TREE
-        ========================================= */
-
-        .tree-wrapper {
-            overflow-x: auto;
-
-            padding: 20px;
-
-            background: #f8fbff;
-
-            border-radius: 15px;
-        }
-
-
-        .tree {
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            min-width: 300px;
-        }
-
-
-        .tree-node {
-            background: #4d8dcc;
-
-            color: white;
-
-            padding: 10px 18px;
-
-            border-radius: 20px;
-
-            font-weight: bold;
-
-            margin: 8px;
-        }
-
-
-        .tree-branch {
-            display: flex;
-
-            justify-content: center;
-
-            gap: 40px;
-
-            width: 100%;
-        }
-
-
-        .tree-child {
-            background: #fff0b8;
-
-            color: #5f4a00;
-
-            padding: 9px 16px;
-
-            border-radius: 20px;
-
-            font-weight: bold;
-
-            margin-top: 15px;
-        }
-
-
-        /* =========================================
-           TABLE
-        ========================================= */
-
-        .factor-table {
-            width: 100%;
-
-            border-collapse: collapse;
-
-            margin-top: 15px;
-        }
-
-
-        .factor-table th {
-            background: #365f91;
-
-            color: white;
-
-            padding: 12px;
-        }
-
-
-        .factor-table td {
-            border: 1px solid #ccd7e5;
-
-            padding: 12px;
-
-            text-align: center;
-        }
-
-
-        /* =========================================
-           LAB
-        ========================================= */
+        /* LABORATORIUM */
 
         .lab-section {
-            background:
-                linear-gradient(
-                    135deg,
-                    #eaf6ff,
-                    #ffffff,
-                    #f4edff
-                );
-
+            background: linear-gradient(135deg, #eaf6ff, #ffffff, #f4edff);
             padding: 60px 0;
         }
 
-
         .lab-card {
             background: white;
-
             padding: 35px;
-
             border-radius: 25px;
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
 
         .lab-method-selector {
             display: flex;
-
             justify-content: center;
-
             gap: 15px;
-
             flex-wrap: wrap;
-
             margin: 25px 0;
         }
 
-
         .lab-method-btn {
             padding: 14px 25px;
-
             border: none;
-
             border-radius: 30px;
-
             cursor: pointer;
-
             font-size: 16px;
-
             font-weight: bold;
-
             background: #e5e7eb;
-
             transition: 0.3s;
         }
 
-
         .lab-method-btn.active {
-            background:
-                linear-gradient(
-                    135deg,
-                    #4d8dcc,
-                    #365f91
-                );
-
+            background: linear-gradient(135deg, #4d8dcc, #365f91);
             color: white;
         }
-
 
         .lab-method {
             display: none;
         }
 
-
         .lab-method.active {
             display: block;
         }
 
-
         .input-row {
             display: flex;
-
             justify-content: center;
-
             gap: 20px;
-
             flex-wrap: wrap;
-
             margin: 25px 0;
         }
 
-
         .input-box {
             display: flex;
-
             flex-direction: column;
-
             gap: 8px;
         }
 
+        .input-box label {
+            font-weight: bold;
+            color: #365f91;
+        }
 
         .input-box input {
             width: 220px;
-
             padding: 12px;
-
             border-radius: 12px;
-
             border: 2px solid #b5c7e8;
-
             font-size: 18px;
         }
 
-
-        .lab-result {
-            margin-top: 30px;
-        }
-
-
         .result-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
-
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
-
 
         .result-box {
             background: #f7fbff;
-
             border-radius: 20px;
-
             padding: 25px;
-
             text-align: center;
-
-            border:
-                2px dashed #7ba8d8;
+            border: 2px dashed #7ba8d8;
+            overflow-x: auto;
         }
 
+        /* POHON FAKTOR */
+
+        .tree-wrapper {
+            min-height: 260px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .factor-tree {
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .tree-node-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tree-node {
+            min-width: 55px;
+            padding: 9px 14px;
+            border-radius: 18px;
+            background: #4d8dcc;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tree-children {
+            display: flex;
+            gap: 35px;
+            position: relative;
+            padding-top: 38px;
+        }
+
+        .tree-children::before {
+            content: "";
+            position: absolute;
+            top: 18px;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: #7ba8d8;
+        }
+
+        .tree-child-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tree-child-wrapper::before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 22px;
+            background: #7ba8d8;
+            top: -20px;
+        }
+
+        .tree-prime {
+            background: #fff0b8;
+            color: #5f4a00;
+        }
+
+        /* TABEL */
+
+        .factor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .factor-table th {
+            background: #365f91;
+            color: white;
+            padding: 12px;
+        }
+
+        .factor-table td {
+            border: 1px solid #ccd7e5;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .factor-table tr:nth-child(even) {
+            background: #f7fbff;
+        }
+
+        /* HASIL */
 
         .final-results {
             display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
-
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-
             margin-top: 25px;
         }
 
-
         .kpk-result {
             background: #eaf4ff;
-
-            border:
-                2px solid #4d8dcc;
-
+            border: 2px solid #4d8dcc;
             padding: 25px;
-
             border-radius: 20px;
-
             text-align: center;
         }
-
 
         .fpb-result {
             background: #effbea;
-
-            border:
-                2px solid #7ab86b;
-
+            border: 2px solid #7ab86b;
             padding: 25px;
-
             border-radius: 20px;
-
             text-align: center;
         }
-
 
         .big-number {
             font-size: 35px;
-
             font-weight: bold;
-
             margin-top: 10px;
         }
 
-
-        /* =========================================
-           FOOTER
-        ========================================= */
-
         footer {
             background: #365f91;
-
             color: white;
-
             text-align: center;
-
             padding: 30px;
-
             margin-top: 50px;
         }
-
-
-        /* =========================================
-           RESPONSIVE
-        ========================================= */
 
         @media(max-width: 700px) {
 
@@ -878,12 +518,16 @@
                 flex-direction: column;
             }
 
+            .input-row {
+                flex-direction: column;
+            }
+
             .input-box input {
                 width: 100%;
             }
 
-            .input-row {
-                flex-direction: column;
+            .tree-children {
+                gap: 15px;
             }
 
         }
@@ -891,13 +535,7 @@
     </style>
 </head>
 
-
 <body>
-
-
-<!-- =========================================
-     HEADER
-========================================= -->
 
 <header>
 
@@ -913,28 +551,15 @@
 </header>
 
 
-
-<!-- =========================================
-     NAVIGATION
-========================================= -->
-
 <nav>
 
     <a href="#materi">Materi</a>
-
     <a href="#langkah">Strategi</a>
-
     <a href="#soal">Soal Cerita</a>
-
     <a href="#laboratorium">Laboratorium</a>
 
 </nav>
 
-
-
-<!-- =========================================
-     MATERI
-========================================= -->
 
 <section id="materi">
 
@@ -967,9 +592,9 @@
                 <br>
 
                 <p>
-                    KPK digunakan untuk menentukan
-                    kapan dua atau lebih kegiatan
-                    akan terjadi secara bersamaan.
+                    KPK digunakan untuk menentukan kapan
+                    dua atau lebih kegiatan akan terjadi
+                    secara bersamaan.
                 </p>
 
                 <br>
@@ -977,15 +602,10 @@
                 <strong>Kata kunci:</strong>
 
                 <ul>
-
                     <li>Bersamaan lagi</li>
-
                     <li>Setiap beberapa menit/hari</li>
-
                     <li>Berulang</li>
-
                     <li>Jadwal yang sama</li>
-
                 </ul>
 
             </div>
@@ -1003,9 +623,9 @@
                 <br>
 
                 <p>
-                    FPB digunakan untuk membagi
-                    beberapa benda ke dalam kelompok
-                    sebanyak mungkin tanpa sisa.
+                    FPB digunakan untuk membagi beberapa
+                    benda ke dalam kelompok sebanyak mungkin
+                    tanpa sisa.
                 </p>
 
                 <br>
@@ -1013,15 +633,10 @@
                 <strong>Kata kunci:</strong>
 
                 <ul>
-
                     <li>Dibagikan sama banyak</li>
-
                     <li>Kelompok terbanyak</li>
-
                     <li>Tanpa sisa</li>
-
                     <li>Jumlah terbesar</li>
-
                 </ul>
 
             </div>
@@ -1032,11 +647,6 @@
 
 </section>
 
-
-
-<!-- =========================================
-     STRATEGI
-========================================= -->
 
 <section id="langkah">
 
@@ -1065,9 +675,8 @@
                     <h3>Diketahui</h3>
 
                     <p>
-                        Tuliskan semua informasi
-                        penting yang terdapat
-                        dalam soal.
+                        Tuliskan semua informasi penting
+                        yang terdapat dalam soal.
                     </p>
 
                 </div>
@@ -1080,8 +689,8 @@
                     <h3>Ditanyakan</h3>
 
                     <p>
-                        Tuliskan apa yang harus
-                        dicari atau dijawab.
+                        Tuliskan apa yang harus dicari
+                        atau dijawab.
                     </p>
 
                 </div>
@@ -1094,8 +703,8 @@
                     <h3>Kata Kunci</h3>
 
                     <p>
-                        Tentukan apakah soal
-                        menggunakan KPK atau FPB.
+                        Tentukan apakah soal menggunakan
+                        KPK atau FPB.
                     </p>
 
                 </div>
@@ -1137,7 +746,7 @@
 
                     <p>
                         Tuliskan jawaban sesuai
-                        dengan konteks soal.
+                        dengan konteks pertanyaan.
                     </p>
 
                 </div>
@@ -1150,11 +759,6 @@
 
 </section>
 
-
-
-<!-- =========================================
-     SOAL CERITA
-========================================= -->
 
 <section id="soal">
 
@@ -1172,18 +776,13 @@
         </div>
 
 
-        <!-- =========================
-             SOAL 1
-        ========================== -->
+        <!-- SOAL 1 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    1
-                </div>
-
+                <div class="question-number">1</div>
 
                 <div class="question-content">
 
@@ -1195,16 +794,12 @@
                         Bus kota B berangkat dari terminal
                         yang sama setiap 18 menit sekali.
                         Jika kedua bus berangkat bersamaan
-                        pada pukul 06.00,
-                        pada pukul berapa mereka akan
-                        berangkat bersamaan lagi?
+                        pada pukul 06.00, pada pukul berapa
+                        mereka akan berangkat bersamaan lagi?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution1')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution1')">
                         Lihat Pembahasan
                     </button>
 
@@ -1216,88 +811,40 @@
             <div id="solution1" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Bus A berangkat setiap 12 menit.
-                        Bus B berangkat setiap 18 menit.
-                        Keduanya berangkat bersama pukul 06.00.
-                    </p>
-
+                    <p>Bus A setiap 12 menit dan Bus B setiap 18 menit.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Pukul berapa kedua bus
-                        berangkat bersama lagi?
-                    </p>
-
+                    <p>Pukul berapa kedua bus berangkat bersama lagi?</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
                     <p>
-                        Kata kunci:
-                        <strong>bersamaan lagi</strong>.
-                        Maka menggunakan
-                        <strong>KPK</strong>.
+                        Kata kunci: <strong>bersamaan lagi</strong>.
+                        Menggunakan <strong>KPK</strong>.
                     </p>
-
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        12 = 2² × 3
-                    </p>
-
-                    <p>
-                        18 = 2 × 3²
-                    </p>
-
+                    <p>12 = 2² × 3</p>
+                    <p>18 = 2 × 3²</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung KPK</h4>
-
-                    <p>
-                        KPK = 2² × 3²
-                    </p>
-
-                    <p>
-                        KPK = 4 × 9 = 36
-                    </p>
-
+                    <p>KPK = 2² × 3² = 36 menit.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
                     <p>
-                        Kedua bus akan berangkat
-                        bersamaan lagi setelah 36 menit.
+                        06.00 + 36 menit =
+                        <strong>pukul 06.36</strong>.
                     </p>
-
-                    <p>
-                        Pukul 06.00 + 36 menit
-                        = <strong>06.36</strong>.
-                    </p>
-
                 </div>
 
             </div>
@@ -1305,40 +852,28 @@
         </div>
 
 
-
-        <!-- =========================
-             SOAL 2
-        ========================== -->
+        <!-- SOAL 2 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    2
-                </div>
-
+                <div class="question-number">2</div>
 
                 <div class="question-content">
 
-                    <h3>🍬 Permen Rina</h3>
+                    <h3>🍬 Permen</h3>
 
                     <p>
                         Rina memiliki 36 permen cokelat
                         dan 48 permen susu.
-                        Ia ingin membagikan permen tersebut
-                        kepada teman-temannya dalam jumlah
-                        yang sama banyak tanpa sisa.
-                        Berapa banyak teman paling banyak
-                        yang dapat menerima permen tersebut?
-                        Berapa permen yang diterima setiap teman?
+                        Ia ingin membagikannya kepada teman
+                        dengan jumlah sama banyak tanpa sisa.
+                        Berapa jumlah teman paling banyak?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution2')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution2')">
                         Lihat Pembahasan
                     </button>
 
@@ -1350,101 +885,40 @@
             <div id="solution2" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Permen cokelat = 36.
-                    </p>
-
-                    <p>
-                        Permen susu = 48.
-                    </p>
-
+                    <p>36 permen cokelat dan 48 permen susu.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Jumlah teman paling banyak
-                        dan jumlah permen setiap teman.
-                    </p>
-
+                    <p>Jumlah teman paling banyak.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
                     <p>
-                        Kata kunci:
-                        <strong>dibagikan sama banyak
-                        tanpa sisa</strong>.
-                    </p>
-
-                    <p>
-                        Maka menggunakan
+                        Dibagikan sama banyak tanpa sisa =
                         <strong>FPB</strong>.
                     </p>
-
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        36 = 2² × 3²
-                    </p>
-
-                    <p>
-                        48 = 2⁴ × 3
-                    </p>
-
+                    <p>36 = 2² × 3²</p>
+                    <p>48 = 2⁴ × 3</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung FPB</h4>
-
-                    <p>
-                        FPB = 2² × 3
-                    </p>
-
-                    <p>
-                        FPB = 12
-                    </p>
-
+                    <p>FPB = 2² × 3 = 12.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
                     <p>
-                        Teman paling banyak adalah
+                        Jumlah teman paling banyak adalah
                         <strong>12 orang</strong>.
                     </p>
-
-                    <p>
-                        Setiap teman mendapat:
-                    </p>
-
-                    <p>
-                        36 ÷ 12 = 3 permen cokelat
-                    </p>
-
-                    <p>
-                        48 ÷ 12 = 4 permen susu
-                    </p>
-
                 </div>
 
             </div>
@@ -1452,39 +926,29 @@
         </div>
 
 
-
-        <!-- =========================
-             SOAL 3
-        ========================== -->
+        <!-- SOAL 3 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    3
-                </div>
-
+                <div class="question-number">3</div>
 
                 <div class="question-content">
 
-                    <h3>📚 Buku Ani</h3>
+                    <h3>📚 Buku</h3>
 
                     <p>
-                        Ani memiliki 60 buku cerita
-                        dan 90 buku pengetahuan.
-                        Ia ingin menyusun buku tersebut
-                        ke dalam beberapa rak dengan
-                        jumlah buku sama banyak.
-                        Berapa jumlah buku paling banyak
-                        yang dapat disusun dalam setiap rak?
+                        Ani memiliki 60 buku cerita dan
+                        90 buku pengetahuan.
+                        Buku tersebut akan disusun dengan
+                        jumlah sama banyak.
+                        Berapa jumlah buku terbanyak
+                        dalam setiap kelompok?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution3')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution3')">
                         Lihat Pembahasan
                     </button>
 
@@ -1496,89 +960,38 @@
             <div id="solution3" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Buku cerita = 60.
-                    </p>
-
-                    <p>
-                        Buku pengetahuan = 90.
-                    </p>
-
+                    <p>60 buku cerita dan 90 buku pengetahuan.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Jumlah buku paling banyak
-                        dalam setiap kelompok yang sama.
-                    </p>
-
+                    <p>Jumlah buku terbanyak dalam setiap kelompok.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
-                    <p>
-                        Kata kunci:
-                        <strong>sama banyak</strong>.
-                    </p>
-
-                    <p>
-                        Menggunakan
-                        <strong>FPB</strong>.
-                    </p>
-
+                    <p>Sama banyak = <strong>FPB</strong>.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        60 = 2² × 3 × 5
-                    </p>
-
-                    <p>
-                        90 = 2 × 3² × 5
-                    </p>
-
+                    <p>60 = 2² × 3 × 5</p>
+                    <p>90 = 2 × 3² × 5</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung FPB</h4>
-
-                    <p>
-                        FPB = 2 × 3 × 5
-                    </p>
-
-                    <p>
-                        FPB = 30
-                    </p>
-
+                    <p>FPB = 2 × 3 × 5 = 30.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
                     <p>
-                        Jumlah buku paling banyak
-                        dalam setiap kelompok adalah
+                        Jumlah buku terbanyak dalam
+                        setiap kelompok adalah
                         <strong>30 buku</strong>.
                     </p>
-
                 </div>
 
             </div>
@@ -1586,40 +999,28 @@
         </div>
 
 
-
-        <!-- =========================
-             SOAL 4
-        ========================== -->
+        <!-- SOAL 4 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    4
-                </div>
-
+                <div class="question-number">4</div>
 
                 <div class="question-content">
 
                     <h3>🏃 Senam dan Pramuka</h3>
 
                     <p>
-                        Kelas 5 mengadakan kegiatan senam
-                        setiap 6 hari sekali dan kegiatan
-                        pramuka setiap 8 hari sekali.
-                        Jika hari ini kedua kegiatan
-                        dilaksanakan bersamaan,
-                        setelah berapa hari kedua kegiatan
-                        tersebut akan dilaksanakan
-                        bersama-sama lagi?
+                        Kegiatan senam dilakukan setiap
+                        6 hari sekali dan pramuka setiap
+                        8 hari sekali.
+                        Setelah berapa hari kedua kegiatan
+                        dilakukan bersama lagi?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution4')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution4')">
                         Lihat Pembahasan
                     </button>
 
@@ -1631,89 +1032,37 @@
             <div id="solution4" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Senam setiap 6 hari.
-                    </p>
-
-                    <p>
-                        Pramuka setiap 8 hari.
-                    </p>
-
+                    <p>Senam setiap 6 hari, pramuka setiap 8 hari.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Kapan kedua kegiatan
-                        dilaksanakan bersamaan lagi?
-                    </p>
-
+                    <p>Kapan kedua kegiatan bersama lagi?</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
-                    <p>
-                        Kata kunci:
-                        <strong>bersamaan lagi</strong>.
-                    </p>
-
-                    <p>
-                        Menggunakan
-                        <strong>KPK</strong>.
-                    </p>
-
+                    <p>Bersamaan lagi = <strong>KPK</strong>.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        6 = 2 × 3
-                    </p>
-
-                    <p>
-                        8 = 2³
-                    </p>
-
+                    <p>6 = 2 × 3</p>
+                    <p>8 = 2³</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung KPK</h4>
-
-                    <p>
-                        KPK = 2³ × 3
-                    </p>
-
-                    <p>
-                        KPK = 24
-                    </p>
-
+                    <p>KPK = 2³ × 3 = 24.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
                     <p>
-                        Kedua kegiatan akan dilaksanakan
-                        bersama-sama lagi setelah
-                        <strong>24 hari</strong>.
+                        Kedua kegiatan bersama lagi
+                        setelah <strong>24 hari</strong>.
                     </p>
-
                 </div>
 
             </div>
@@ -1721,42 +1070,29 @@
         </div>
 
 
-
-        <!-- =========================
-             SOAL 5
-        ========================== -->
+        <!-- SOAL 5 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    5
-                </div>
-
+                <div class="question-number">5</div>
 
                 <div class="question-content">
 
-                    <h3>🔴🔵🟢 Kelereng</h3>
+                    <h3>🔴 Kelereng</h3>
 
                     <p>
-                        Tiga toples berisi kelereng
-                        dengan jumlah masing-masing
-                        30, 45, dan 60 butir.
+                        Terdapat 30, 45, dan 60 kelereng.
                         Semua kelereng akan dimasukkan
                         ke dalam kantong dengan jumlah
-                        yang sama banyak tanpa mencampur
-                        warna dari toples yang berbeda.
-                        Berapakah jumlah kantong
-                        paling banyak yang dapat dibuat?
-                        Berapa kelereng di setiap kantong?
+                        sama banyak.
+                        Berapa kantong paling banyak
+                        yang dapat dibuat?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution5')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution5')">
                         Lihat Pembahasan
                     </button>
 
@@ -1768,113 +1104,38 @@
             <div id="solution5" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Toples pertama = 30.
-                    </p>
-
-                    <p>
-                        Toples kedua = 45.
-                    </p>
-
-                    <p>
-                        Toples ketiga = 60.
-                    </p>
-
+                    <p>30, 45, dan 60 kelereng.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Jumlah kantong paling banyak
-                        yang dapat dibuat.
-                    </p>
-
+                    <p>Jumlah kantong paling banyak.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
-                    <p>
-                        Kata kunci:
-                        <strong>dibagikan sama banyak
-                        tanpa sisa</strong>.
-                    </p>
-
-                    <p>
-                        Menggunakan
-                        <strong>FPB</strong>.
-                    </p>
-
+                    <p>Dibagi sama banyak = <strong>FPB</strong>.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        30 = 2 × 3 × 5
-                    </p>
-
-                    <p>
-                        45 = 3² × 5
-                    </p>
-
-                    <p>
-                        60 = 2² × 3 × 5
-                    </p>
-
+                    <p>30 = 2 × 3 × 5</p>
+                    <p>45 = 3² × 5</p>
+                    <p>60 = 2² × 3 × 5</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung FPB</h4>
-
-                    <p>
-                        FPB = 3 × 5
-                    </p>
-
-                    <p>
-                        FPB = 15
-                    </p>
-
+                    <p>FPB = 3 × 5 = 15.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
                     <p>
-                        Kantong paling banyak yang dapat dibuat
-                        adalah <strong>15 kantong</strong>.
+                        Kantong paling banyak adalah
+                        <strong>15 kantong</strong>.
                     </p>
-
-                    <p>
-                        Isi setiap kantong:
-                    </p>
-
-                    <p>
-                        30 ÷ 15 = 2
-                    </p>
-
-                    <p>
-                        45 ÷ 15 = 3
-                    </p>
-
-                    <p>
-                        60 ÷ 15 = 4
-                    </p>
-
                 </div>
 
             </div>
@@ -1882,41 +1143,27 @@
         </div>
 
 
-
-        <!-- =========================
-             SOAL 6
-        ========================== -->
+        <!-- SOAL 6 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    6
-                </div>
-
+                <div class="question-number">6</div>
 
                 <div class="question-content">
 
                     <h3>🚰 Dua Kran Air</h3>
 
                     <p>
-                        Dua kran air mengisi dua bak berbeda.
-                        Kran A dapat mengisi penuh bak
-                        dalam 15 menit,
-                        sedangkan kran B dapat mengisi penuh
-                        bak dalam 20 menit.
-                        Jika kedua kran dibuka bersamaan
-                        pada pukul 08.00,
-                        pada pukul berapa keduanya akan
-                        selesai mengisi penuh secara bersama?
+                        Kran A selesai setiap 15 menit
+                        dan kran B selesai setiap 20 menit.
+                        Jika mulai bersamaan pukul 08.00,
+                        kapan keduanya selesai bersama?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution6')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution6')">
                         Lihat Pembahasan
                     </button>
 
@@ -1928,98 +1175,37 @@
             <div id="solution6" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Kran A selesai setiap 15 menit.
-                    </p>
-
-                    <p>
-                        Kran B selesai setiap 20 menit.
-                    </p>
-
-                    <p>
-                        Mulai pukul 08.00.
-                    </p>
-
+                    <p>15 menit dan 20 menit.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Kapan kedua kran selesai
-                        secara bersamaan?
-                    </p>
-
+                    <p>Kapan selesai bersama?</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
-                    <p>
-                        Kata kunci:
-                        <strong>bersamaan</strong>.
-                    </p>
-
-                    <p>
-                        Menggunakan
-                        <strong>KPK</strong>.
-                    </p>
-
+                    <p>Bersamaan = <strong>KPK</strong>.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        15 = 3 × 5
-                    </p>
-
-                    <p>
-                        20 = 2² × 5
-                    </p>
-
+                    <p>15 = 3 × 5</p>
+                    <p>20 = 2² × 5</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung KPK</h4>
-
-                    <p>
-                        KPK = 2² × 3 × 5
-                    </p>
-
-                    <p>
-                        KPK = 60 menit
-                    </p>
-
+                    <p>KPK = 2² × 3 × 5 = 60 menit.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
                     <p>
-                        Kedua kran akan selesai
-                        secara bersamaan setelah
-                        <strong>60 menit</strong>.
+                        08.00 + 60 menit =
+                        <strong>09.00</strong>.
                     </p>
-
-                    <p>
-                        Pukul 08.00 + 60 menit
-                        = <strong>09.00</strong>.
-                    </p>
-
                 </div>
 
             </div>
@@ -2027,41 +1213,28 @@
         </div>
 
 
-
-        <!-- =========================
-             SOAL 7
-        ========================== -->
+        <!-- SOAL 7 -->
 
         <div class="question-card">
 
             <div class="question-header">
 
-                <div class="question-number">
-                    7
-                </div>
-
+                <div class="question-number">7</div>
 
                 <div class="question-content">
 
                     <h3>🇮🇩 Upacara dan Pembinaan</h3>
 
                     <p>
-                        Upacara bendera di sekolah
-                        dilakukan setiap 12 hari sekali.
-                        Kegiatan pembinaan karakter
-                        dilakukan setiap 18 hari sekali.
-                        Jika hari ini kedua kegiatan
-                        dilaksanakan bersama,
+                        Upacara dilakukan setiap 12 hari
+                        dan pembinaan setiap 18 hari.
+                        Jika hari ini bersama,
                         pada hari ke berapa keduanya
-                        akan dilaksanakan bersamaan
-                        untuk ketiga kalinya?
+                        bersama untuk ketiga kalinya?
                     </p>
 
-
-                    <button
-                        class="btn"
-                        onclick="toggleSolution('solution7')"
-                    >
+                    <button class="btn"
+                        onclick="toggleSolution('solution7')">
                         Lihat Pembahasan
                     </button>
 
@@ -2073,103 +1246,40 @@
             <div id="solution7" class="solution">
 
                 <div class="solution-step">
-
                     <h4>1. Diketahui</h4>
-
-                    <p>
-                        Upacara setiap 12 hari.
-                    </p>
-
-                    <p>
-                        Pembinaan karakter setiap 18 hari.
-                    </p>
-
+                    <p>12 hari dan 18 hari.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>2. Ditanyakan</h4>
-
-                    <p>
-                        Kapan kedua kegiatan
-                        berlangsung bersamaan
-                        untuk ketiga kalinya?
-                    </p>
-
+                    <p>Kapan bersama untuk ketiga kalinya?</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>3. Kata Kunci</h4>
-
-                    <p>
-                        Kata kunci:
-                        <strong>bersamaan</strong>.
-                    </p>
-
-                    <p>
-                        Menggunakan
-                        <strong>KPK</strong>.
-                    </p>
-
+                    <p>Bersamaan = <strong>KPK</strong>.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>4. Faktorisasi Prima</h4>
-
-                    <p>
-                        12 = 2² × 3
-                    </p>
-
-                    <p>
-                        18 = 2 × 3²
-                    </p>
-
+                    <p>12 = 2² × 3</p>
+                    <p>18 = 2 × 3²</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>5. Menghitung KPK</h4>
-
-                    <p>
-                        KPK = 2² × 3²
-                    </p>
-
-                    <p>
-                        KPK = 36 hari
-                    </p>
-
+                    <p>KPK = 2² × 3² = 36 hari.</p>
                 </div>
 
-
                 <div class="solution-step">
-
                     <h4>6. Kesimpulan</h4>
-
+                    <p>Pertama = hari ini.</p>
+                    <p>Kedua = 36 hari.</p>
+                    <p>Ketiga = 72 hari.</p>
                     <p>
-                        Bersamaan pertama = hari ini.
-                    </p>
-
-                    <p>
-                        Bersamaan kedua = 36 hari lagi.
-                    </p>
-
-                    <p>
-                        Bersamaan ketiga = 72 hari lagi.
-                    </p>
-
-                    <p>
-                        Jadi kedua kegiatan akan
-                        bersamaan untuk ketiga kalinya
-                        pada hari ke-
+                        Jadi terjadi pada hari ke-
                         <strong>72</strong>.
                     </p>
-
                 </div>
 
             </div>
@@ -2181,10 +1291,7 @@
 </section>
 
 
-
-<!-- =========================================
-     LABORATORIUM
-========================================= -->
+<!-- LABORATORIUM -->
 
 <section id="laboratorium" class="lab-section">
 
@@ -2195,8 +1302,9 @@
             <h2>🧪 Laboratorium KPK & FPB</h2>
 
             <p>
-                Masukkan dua bilangan dan pilih metode
-                pohon faktor atau tabel faktorisasi.
+                Masukkan dua bilangan, kemudian pelajari
+                faktorisasi menggunakan pohon faktor
+                atau tabel faktorisasi prima.
             </p>
 
         </div>
@@ -2205,65 +1313,51 @@
         <div class="lab-card">
 
 
-            <!-- =========================
-                 PILIH METODE
-            ========================== -->
+            <!-- PILIH METODE -->
 
             <div class="lab-method-selector">
 
                 <button
                     class="lab-method-btn active"
-                    onclick="showLabMethod('tree')"
-                >
+                    onclick="showLabMethod('tree', this)">
                     🌳 Pohon Faktor
                 </button>
 
-
                 <button
                     class="lab-method-btn"
-                    onclick="showLabMethod('table')"
-                >
-                    📊 Tabel Faktorisasi
+                    onclick="showLabMethod('table', this)">
+                    📊 Tabel Faktorisasi Prima
                 </button>
 
             </div>
 
 
-
-            <!-- =========================
-                 INPUT
-            ========================== -->
+            <!-- INPUT -->
 
             <div class="input-row">
 
                 <div class="input-box">
 
-                    <label>
-                        Bilangan Pertama
-                    </label>
+                    <label>Bilangan Pertama</label>
 
                     <input
                         type="number"
                         id="num1"
                         value="12"
-                        min="2"
-                    >
+                        min="2">
 
                 </div>
 
 
                 <div class="input-box">
 
-                    <label>
-                        Bilangan Kedua
-                    </label>
+                    <label>Bilangan Kedua</label>
 
                     <input
                         type="number"
                         id="num2"
                         value="18"
-                        min="2"
-                    >
+                        min="2">
 
                 </div>
 
@@ -2273,35 +1367,29 @@
             <button
                 class="btn"
                 onclick="calculateLab()"
-                style="display:block; margin:20px auto;"
-            >
+                style="display:block; margin:20px auto;">
+
                 🔍 Hitung Sekarang
+
             </button>
 
 
+            <!-- POHON FAKTOR -->
 
-            <!-- =========================
-                 POHON FAKTOR
-            ========================== -->
-
-            <div
-                id="treeLab"
-                class="lab-method active"
-            >
+            <div id="treeLab" class="lab-method active">
 
                 <h3
                     style="
-                        text-align:center;
-                        color:#365f91;
-                        margin:25px 0;
-                    "
-                >
+                    text-align:center;
+                    color:#365f91;
+                    margin:25px 0;">
+
                     🌳 Metode Pohon Faktor
+
                 </h3>
 
 
                 <div class="result-grid">
-
 
                     <div class="result-box">
 
@@ -2311,18 +1399,12 @@
 
                         <div
                             id="treeResult1"
-                            class="tree-wrapper"
-                        >
+                            class="tree-wrapper">
                         </div>
 
-                        <p
-                            id="primeResult1"
-                            style="margin-top:15px;"
-                        >
-                        </p>
+                        <p id="primeResult1"></p>
 
                     </div>
-
 
 
                     <div class="result-box">
@@ -2333,15 +1415,10 @@
 
                         <div
                             id="treeResult2"
-                            class="tree-wrapper"
-                        >
+                            class="tree-wrapper">
                         </div>
 
-                        <p
-                            id="primeResult2"
-                            style="margin-top:15px;"
-                        >
-                        </p>
+                        <p id="primeResult2"></p>
 
                     </div>
 
@@ -2350,24 +1427,18 @@
             </div>
 
 
+            <!-- TABEL FAKTORISASI -->
 
-            <!-- =========================
-                 TABEL FAKTORISASI
-            ========================== -->
-
-            <div
-                id="tableLab"
-                class="lab-method"
-            >
+            <div id="tableLab" class="lab-method">
 
                 <h3
                     style="
-                        text-align:center;
-                        color:#365f91;
-                        margin:25px 0;
-                    "
-                >
+                    text-align:center;
+                    color:#365f91;
+                    margin:25px 0;">
+
                     📊 Metode Tabel Faktorisasi Prima
+
                 </h3>
 
 
@@ -2377,17 +1448,11 @@
 
                         <tr>
 
-                            <th>
-                                Bilangan Prima
-                            </th>
+                            <th>Bilangan Prima</th>
 
-                            <th id="tableHead1">
-                                12
-                            </th>
+                            <th id="tableHead1">12</th>
 
-                            <th id="tableHead2">
-                                18
-                            </th>
+                            <th id="tableHead2">18</th>
 
                         </tr>
 
@@ -2395,7 +1460,6 @@
 
 
                     <tbody id="factorTableBody">
-
                     </tbody>
 
                 </table>
@@ -2403,18 +1467,13 @@
             </div>
 
 
-
-            <!-- =========================
-                 HASIL KPK FPB
-            ========================== -->
+            <!-- HASIL -->
 
             <div class="final-results">
 
                 <div class="kpk-result">
 
-                    <h3>
-                        🔵 KPK
-                    </h3>
+                    <h3>🔵 KPK</h3>
 
                     <p id="kpkText">
                         Hasil KPK
@@ -2422,9 +1481,10 @@
 
                     <div
                         id="kpkResult"
-                        class="big-number"
-                    >
+                        class="big-number">
+
                         -
+
                     </div>
 
                 </div>
@@ -2432,9 +1492,7 @@
 
                 <div class="fpb-result">
 
-                    <h3>
-                        🟢 FPB
-                    </h3>
+                    <h3>🟢 FPB</h3>
 
                     <p id="fpbText">
                         Hasil FPB
@@ -2442,15 +1500,15 @@
 
                     <div
                         id="fpbResult"
-                        class="big-number"
-                    >
+                        class="big-number">
+
                         -
+
                     </div>
 
                 </div>
 
             </div>
-
 
         </div>
 
@@ -2459,36 +1517,21 @@
 </section>
 
 
-
-<!-- =========================================
-     FOOTER
-========================================= -->
-
 <footer>
 
-    <h3>
-        📘 KPK & FPB Soal Cerita Interaktif
-    </h3>
+    <h3>📘 KPK & FPB Soal Cerita Interaktif</h3>
 
     <p>
         Belajar matematika dengan memahami
-        langkah penyelesaian masalah.
+        strategi penyelesaian masalah.
     </p>
 
 </footer>
 
 
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
 <script>
 
-
-    /* =========================================
-       TOGGLE PEMBAHASAN
-    ========================================= */
+    /* TAMPILKAN PEMBAHASAN */
 
     function toggleSolution(id) {
 
@@ -2500,102 +1543,191 @@
     }
 
 
+    /* PINDAH METODE LAB */
 
-    /* =========================================
-       PILIH METODE LAB
-    ========================================= */
+    function showLabMethod(method, button) {
 
-    function showLabMethod(method) {
+        document
+            .getElementById("treeLab")
+            .classList.remove("active");
 
-        const treeLab =
-            document.getElementById("treeLab");
-
-        const tableLab =
-            document.getElementById("tableLab");
-
-        const buttons =
-            document.querySelectorAll(
-                ".lab-method-btn"
-            );
+        document
+            .getElementById("tableLab")
+            .classList.remove("active");
 
 
-        treeLab.classList.remove("active");
+        document
+            .querySelectorAll(".lab-method-btn")
+            .forEach(function(btn) {
 
-        tableLab.classList.remove("active");
+                btn.classList.remove("active");
 
-
-        buttons.forEach(function(button) {
-
-            button.classList.remove("active");
-
-        });
+            });
 
 
         if (method === "tree") {
 
-            treeLab.classList.add("active");
+            document
+                .getElementById("treeLab")
+                .classList.add("active");
 
-            buttons[0].classList.add("active");
+        } else {
 
-        }
-
-        else {
-
-            tableLab.classList.add("active");
-
-            buttons[1].classList.add("active");
+            document
+                .getElementById("tableLab")
+                .classList.add("active");
 
         }
+
+
+        button.classList.add("active");
 
     }
 
 
+    /* CEK BILANGAN PRIMA */
 
-    /* =========================================
-       FPB
-    ========================================= */
+    function isPrime(n) {
 
-    function gcd(a, b) {
+        if (n < 2) return false;
 
-        while (b !== 0) {
+        for (let i = 2; i * i <= n; i++) {
 
-            let temporary = b;
-
-            b = a % b;
-
-            a = temporary;
+            if (n % i === 0) {
+                return false;
+            }
 
         }
 
-        return a;
+        return true;
 
     }
 
 
+    /* CARI PASANGAN FAKTOR */
 
-    /* =========================================
-       KPK
-    ========================================= */
+    function getFactorPair(n) {
 
-    function lcm(a, b) {
+        for (let i = 2; i <= Math.sqrt(n); i++) {
 
-        return Math.abs(a * b) / gcd(a, b);
+            if (n % i === 0) {
+
+                return [i, n / i];
+
+            }
+
+        }
+
+        return null;
 
     }
 
 
+    /* MEMBUAT POHON FAKTOR BERCABANG */
 
-    /* =========================================
-       FAKTOR PRIMA
-    ========================================= */
+    function createTreeNode(number) {
+
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.className =
+            "tree-node-wrapper";
+
+
+        const node =
+            document.createElement("div");
+
+        node.className = "tree-node";
+
+        node.textContent = number;
+
+
+        wrapper.appendChild(node);
+
+
+        if (isPrime(number)) {
+
+            node.classList.add("tree-prime");
+
+            return wrapper;
+
+        }
+
+
+        const pair =
+            getFactorPair(number);
+
+
+        if (!pair) {
+
+            return wrapper;
+
+        }
+
+
+        const children =
+            document.createElement("div");
+
+        children.className =
+            "tree-children";
+
+
+        pair.forEach(function(value) {
+
+            const childWrapper =
+                document.createElement("div");
+
+            childWrapper.className =
+                "tree-child-wrapper";
+
+
+            childWrapper.appendChild(
+                createTreeNode(value)
+            );
+
+
+            children.appendChild(
+                childWrapper
+            );
+
+        });
+
+
+        wrapper.appendChild(children);
+
+        return wrapper;
+
+    }
+
+
+    function createFactorTree(number) {
+
+        const tree =
+            document.createElement("div");
+
+        tree.className =
+            "factor-tree";
+
+
+        tree.appendChild(
+            createTreeNode(number)
+        );
+
+
+        return tree;
+
+    }
+
+
+    /* FAKTOR PRIMA */
 
     function primeFactors(number) {
+
+        let n = number;
 
         let factors = [];
 
         let divisor = 2;
-
-        let n = number;
 
 
         while (n > 1) {
@@ -2618,32 +1750,20 @@
     }
 
 
-
-    /* =========================================
-       FORMAT FAKTORISASI
-    ========================================= */
+    /* FORMAT FAKTORISASI */
 
     function factorizationText(number) {
 
         const factors =
             primeFactors(number);
 
-        let counts = {};
+        const counts = {};
 
 
         factors.forEach(function(factor) {
 
-            if (counts[factor]) {
-
-                counts[factor]++;
-
-            }
-
-            else {
-
-                counts[factor] = 1;
-
-            }
+            counts[factor] =
+                (counts[factor] || 0) + 1;
 
         });
 
@@ -2651,33 +1771,25 @@
         let result = [];
 
 
-        Object.keys(counts).forEach(
-            function(factor) {
+        Object.keys(counts)
+            .forEach(function(factor) {
 
-                const power =
-                    counts[factor];
+                if (counts[factor] === 1) {
 
+                    result.push(factor);
 
-                if (power === 1) {
-
-                    result.push(
-                        factor
-                    );
-
-                }
-
-                else {
+                } else {
 
                     result.push(
-                        factor + "<sup>" +
-                        power +
+                        factor +
+                        "<sup>" +
+                        counts[factor] +
                         "</sup>"
                     );
 
                 }
 
-            }
-        );
+            });
 
 
         return result.join(" × ");
@@ -2685,58 +1797,36 @@
     }
 
 
+    /* FPB */
 
-    /* =========================================
-       BUAT POHON FAKTOR SEDERHANA
-    ========================================= */
+    function gcd(a, b) {
 
-    function createFactorTree(number) {
+        while (b !== 0) {
 
-        const factors =
-            primeFactors(number);
+            let temp = b;
 
+            b = a % b;
 
-        let html = "";
+            a = temp;
 
+        }
 
-        html += `
-            <div class="tree">
-
-                <div class="tree-node">
-                    ${number}
-                </div>
-
-                <div class="tree-branch">
-        `;
-
-
-        factors.forEach(function(factor) {
-
-            html += `
-                <div class="tree-child">
-                    ${factor}
-                </div>
-            `;
-
-        });
-
-
-        html += `
-                </div>
-
-            </div>
-        `;
-
-
-        return html;
+        return a;
 
     }
 
 
+    /* KPK */
 
-    /* =========================================
-       BUAT TABEL FAKTORISASI
-    ========================================= */
+    function lcm(a, b) {
+
+        return Math.abs(a * b) /
+            gcd(a, b);
+
+    }
+
+
+    /* TABEL FAKTORISASI PRIMA */
 
     function createFactorTable(num1, num2) {
 
@@ -2751,36 +1841,42 @@
 
         while (a > 1 || b > 1) {
 
-            let oldA = a;
-
-            let oldB = b;
-
-
-            if (a % divisor === 0) {
-
-                a = a / divisor;
-
-            }
-
-
-            if (b % divisor === 0) {
-
-                b = b / divisor;
-
-            }
+            let divisible =
+                false;
 
 
             if (
-                oldA !== a ||
-                oldB !== b
+                a % divisor === 0 ||
+                b % divisor === 0
             ) {
+
+                divisible = true;
+
+
+                if (a % divisor === 0) {
+
+                    a = a / divisor;
+
+                }
+
+
+                if (b % divisor === 0) {
+
+                    b = b / divisor;
+
+                }
+
+            }
+
+
+            if (divisible) {
 
                 rows += `
 
                     <tr>
 
                         <td>
-                            ÷ ${divisor}
+                            ${divisor}
                         </td>
 
                         <td>
@@ -2803,13 +1899,6 @@
 
             }
 
-
-            if (divisor > 1000) {
-
-                break;
-
-            }
-
         }
 
 
@@ -2818,10 +1907,7 @@
     }
 
 
-
-    /* =========================================
-       HITUNG LABORATORIUM
-    ========================================= */
+    /* HITUNG LAB */
 
     function calculateLab() {
 
@@ -2841,15 +1927,11 @@
             );
 
 
-        /* VALIDASI */
-
         if (
-
             isNaN(num1) ||
             isNaN(num2) ||
             num1 < 2 ||
             num2 < 2
-
         ) {
 
             alert(
@@ -2861,85 +1943,94 @@
         }
 
 
-
-        /* =====================================
-           POHON FAKTOR
-        ===================================== */
+        /* JUDUL */
 
         document
             .getElementById("treeTitle1")
-            .innerText =
-                "Bilangan " + num1;
+            .textContent =
+            "Bilangan " + num1;
 
 
         document
             .getElementById("treeTitle2")
-            .innerText =
-                "Bilangan " + num2;
+            .textContent =
+            "Bilangan " + num2;
 
 
-        document
-            .getElementById("treeResult1")
-            .innerHTML =
-                createFactorTree(num1);
+        /* POHON PERTAMA */
+
+        const tree1 =
+            document.getElementById(
+                "treeResult1"
+            );
+
+        tree1.innerHTML = "";
+
+        tree1.appendChild(
+            createFactorTree(num1)
+        );
 
 
-        document
-            .getElementById("treeResult2")
-            .innerHTML =
-                createFactorTree(num2);
+        /* POHON KEDUA */
 
+        const tree2 =
+            document.getElementById(
+                "treeResult2"
+            );
+
+        tree2.innerHTML = "";
+
+        tree2.appendChild(
+            createFactorTree(num2)
+        );
+
+
+        /* FAKTORISASI */
 
         document
             .getElementById("primeResult1")
             .innerHTML =
-                "<strong>" +
-                num1 +
-                " = " +
-                factorizationText(num1) +
-                "</strong>";
+            "<strong>" +
+            num1 +
+            " = " +
+            factorizationText(num1) +
+            "</strong>";
 
 
         document
             .getElementById("primeResult2")
             .innerHTML =
-                "<strong>" +
-                num2 +
-                " = " +
-                factorizationText(num2) +
-                "</strong>";
+            "<strong>" +
+            num2 +
+            " = " +
+            factorizationText(num2) +
+            "</strong>";
 
 
-
-        /* =====================================
-           TABEL FAKTORISASI
-        ===================================== */
+        /* TABEL */
 
         document
             .getElementById("tableHead1")
-            .innerText =
-                num1;
+            .textContent =
+            num1;
 
 
         document
             .getElementById("tableHead2")
-            .innerText =
-                num2;
+            .textContent =
+            num2;
 
 
         document
             .getElementById("factorTableBody")
             .innerHTML =
-                createFactorTable(
-                    num1,
-                    num2
-                );
+            createFactorTable(
+                num1,
+                num2
+            );
 
 
-
-        /* =====================================
-           KPK DAN FPB
-        ===================================== */
+        /* KPK DAN FPB */
 
         const resultFPB =
             gcd(num1, num2);
@@ -2949,51 +2040,45 @@
             lcm(num1, num2);
 
 
-
         document
             .getElementById("kpkResult")
-            .innerText =
-                resultKPK;
+            .textContent =
+            resultKPK;
 
 
         document
             .getElementById("fpbResult")
-            .innerText =
-                resultFPB;
-
+            .textContent =
+            resultFPB;
 
 
         document
             .getElementById("kpkText")
             .innerHTML =
-                `
+            `
                 KPK dari
                 <strong>${num1}</strong>
                 dan
                 <strong>${num2}</strong>
                 adalah:
-                `;
-
+            `;
 
 
         document
             .getElementById("fpbText")
             .innerHTML =
-                `
+            `
                 FPB dari
                 <strong>${num1}</strong>
                 dan
                 <strong>${num2}</strong>
                 adalah:
-                `;
+            `;
 
     }
 
 
-
-    /* =========================================
-       JALANKAN SAAT WEBSITE DIBUKA
-    ========================================= */
+    /* JALANKAN SAAT WEBSITE DIBUKA */
 
     window.onload = function() {
 
@@ -3001,9 +2086,7 @@
 
     };
 
-
 </script>
-
 
 </body>
 </html>
