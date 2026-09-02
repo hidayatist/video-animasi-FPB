@@ -1,249 +1,676 @@
-<script>
-let scene = 0;
-let voices = [];
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animasi KPK - Bus Kota</title>
 
-const infoBox = document.getElementById("infoBox");
-const dialog1 = document.getElementById("dialog1");
-const dialog2 = document.getElementById("dialog2");
-const resultBox = document.getElementById("resultBox");
-const sceneNumber = document.getElementById("sceneNumber");
-
-/* MEMUAT DAFTAR SUARA */
-function loadVoices() {
-    voices = window.speechSynthesis.getVoices();
-
-    console.log("Daftar suara tersedia:");
-    voices.forEach((voice) => {
-        console.log(voice.name + " - " + voice.lang);
-    });
-}
-
-speechSynthesis.onvoiceschanged = loadVoices;
-loadVoices();
-
-
-/* MEMILIH SUARA BAHASA INDONESIA */
-function getIndonesianVoice() {
-
-    const indonesianVoice = voices.find(voice =>
-        voice.lang.toLowerCase() === "id-id"
-    );
-
-    if (indonesianVoice) {
-        return indonesianVoice;
+<style>
+    * {
+        box-sizing: border-box;
     }
 
-    const alternativeVoice = voices.find(voice =>
-        voice.lang.toLowerCase().startsWith("id")
-    );
+    body {
+        margin: 0;
+        font-family: "Comic Sans MS", "Poppins", sans-serif;
+        background: linear-gradient(135deg, #dff6ff, #fff4d6);
+        color: #263238;
+    }
 
-    return alternativeVoice || null;
-}
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 25px auto;
+        background: white;
+        border-radius: 25px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
 
+    h1 {
+        text-align: center;
+        color: #1565c0;
+        margin-bottom: 5px;
+    }
 
-/* FUNGSI NARASI AUDIO */
-function speak(text) {
+    .subtitle {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
 
-    window.speechSynthesis.cancel();
+    .problem {
+        background: #fff8e1;
+        border-left: 7px solid #ffb300;
+        padding: 18px;
+        border-radius: 15px;
+        font-size: 18px;
+        line-height: 1.6;
+    }
 
-    setTimeout(() => {
+    .scene {
+        position: relative;
+        height: 350px;
+        margin-top: 20px;
+        background: linear-gradient(#87ceeb 0%, #c8f0ff 65%, #7bc96f 65%);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 4px solid #90caf9;
+    }
 
-        const speech =
-            new SpeechSynthesisUtterance(text);
+    /* Matahari */
+    .sun {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        background: #ffd54f;
+        border-radius: 50%;
+        top: 25px;
+        right: 50px;
+        box-shadow: 0 0 25px #ffca28;
+    }
 
-        speech.lang = "id-ID";
+    /* Awan */
+    .cloud {
+        position: absolute;
+        width: 100px;
+        height: 35px;
+        background: white;
+        border-radius: 30px;
+        top: 55px;
+        left: 100px;
+        opacity: 0.9;
+    }
 
-        const selectedVoice =
-            getIndonesianVoice();
+    .cloud::before,
+    .cloud::after {
+        content: "";
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+    }
 
-        if (selectedVoice) {
-            speech.voice = selectedVoice;
+    .cloud::before {
+        width: 45px;
+        height: 45px;
+        left: 20px;
+        top: -20px;
+    }
+
+    .cloud::after {
+        width: 55px;
+        height: 55px;
+        right: 15px;
+        top: -25px;
+    }
+
+    .terminal {
+        position: absolute;
+        left: 20px;
+        bottom: 105px;
+        width: 150px;
+        height: 95px;
+        background: #ffcc80;
+        border: 4px solid #795548;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+        padding-top: 25px;
+        font-weight: bold;
+        z-index: 3;
+    }
+
+    .terminal::before {
+        content: "";
+        position: absolute;
+        top: -35px;
+        left: -15px;
+        width: 170px;
+        height: 40px;
+        background: #ef5350;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+
+    .road {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 105px;
+        background: #424242;
+        border-top: 5px solid #616161;
+    }
+
+    .road::after {
+        content: "";
+        position: absolute;
+        top: 48px;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: repeating-linear-gradient(
+            to right,
+            #fff 0px,
+            #fff 50px,
+            transparent 50px,
+            transparent 100px
+        );
+    }
+
+    .bus {
+        position: absolute;
+        width: 115px;
+        height: 55px;
+        border-radius: 12px 15px 8px 8px;
+        bottom: 65px;
+        left: 185px;
+        z-index: 5;
+        transition: left 1s linear;
+        box-shadow: 0 5px 8px rgba(0,0,0,0.3);
+    }
+
+    .bus-a {
+        background: #ef5350;
+    }
+
+    .bus-b {
+        background: #42a5f5;
+        bottom: 10px;
+    }
+
+    .window {
+        position: absolute;
+        width: 30px;
+        height: 20px;
+        background: #b3e5fc;
+        border: 2px solid #37474f;
+        top: 8px;
+        border-radius: 4px;
+    }
+
+    .window.one {
+        left: 10px;
+    }
+
+    .window.two {
+        left: 45px;
+    }
+
+    .driver {
+        position: absolute;
+        width: 25px;
+        height: 20px;
+        background: #fff;
+        right: 8px;
+        top: 8px;
+        border-radius: 4px;
+    }
+
+    .wheel {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        background: #212121;
+        border-radius: 50%;
+        bottom: -10px;
+        border: 4px solid #757575;
+    }
+
+    .wheel.left {
+        left: 15px;
+    }
+
+    .wheel.right {
+        right: 15px;
+    }
+
+    .bus-label {
+        position: absolute;
+        top: -30px;
+        left: 15px;
+        background: white;
+        padding: 4px 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    .timeline {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f5f5f5;
+        border-radius: 15px;
+    }
+
+    .timeline-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .minutes {
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    .minute {
+        min-width: 75px;
+        padding: 10px;
+        background: white;
+        border: 2px solid #90caf9;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .minute.active {
+        background: #66bb6a;
+        color: white;
+        border-color: #2e7d32;
+        transform: scale(1.05);
+    }
+
+    .calculation {
+        margin-top: 20px;
+        text-align: center;
+        background: #e8f5e9;
+        border-radius: 18px;
+        padding: 20px;
+    }
+
+    .calculation h2 {
+        color: #2e7d32;
+    }
+
+    .number {
+        display: inline-block;
+        background: white;
+        padding: 10px 18px;
+        margin: 5px;
+        border-radius: 12px;
+        border: 2px solid #81c784;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .answer {
+        margin-top: 15px;
+        padding: 15px;
+        background: #ffecb3;
+        border-radius: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #e65100;
+    }
+
+    .controls {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    button {
+        border: none;
+        padding: 13px 25px;
+        margin: 5px;
+        border-radius: 30px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .start {
+        background: #43a047;
+        color: white;
+    }
+
+    .pause {
+        background: #fb8c00;
+        color: white;
+    }
+
+    .reset {
+        background: #e53935;
+        color: white;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    .clock {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #1565c0;
+    }
+
+    .explanation {
+        margin-top: 20px;
+        padding: 20px;
+        background: #e3f2fd;
+        border-radius: 18px;
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    .highlight {
+        color: #d84315;
+        font-weight: bold;
+    }
+
+    @media(max-width:700px) {
+        .scene {
+            height: 330px;
         }
 
-        /* KECEPATAN LEBIH LAMBAT AGAR JELAS */
-        speech.rate = 0.82;
+        .terminal {
+            transform: scale(0.8);
+            transform-origin: left bottom;
+        }
 
-        /* NADA SUARA NORMAL */
-        speech.pitch = 1;
+        .bus {
+            transform: scale(0.8);
+            transform-origin: left bottom;
+        }
+    }
+</style>
+</head>
 
-        /* VOLUME MAKSIMAL */
-        speech.volume = 1;
+<body>
 
-        window.speechSynthesis.speak(speech);
+<div class="container">
 
-    }, 300);
+    <h1>🚌 Animasi KPK: Bus Kota</h1>
 
+    <div class="subtitle">
+        Mari mencari tahu kapan kedua bus berangkat bersama lagi!
+    </div>
+
+    <div class="problem">
+        <strong>📖 Masalah:</strong><br>
+        Bus kota A berangkat dari terminal setiap <strong>12 menit</strong>.
+        Bus kota B berangkat setiap <strong>20 menit</strong>.
+        Jika kedua bus berangkat bersamaan pada pukul <strong>06.00</strong>,
+        pada pukul berapa mereka akan berangkat bersamaan lagi?
+    </div>
+
+    <!-- ANIMASI -->
+    <div class="scene">
+
+        <div class="sun"></div>
+        <div class="cloud"></div>
+
+        <div class="terminal">
+            🏢<br>
+            TERMINAL
+        </div>
+
+        <div class="bus bus-a" id="busA">
+            <div class="bus-label">🚌 BUS A</div>
+            <div class="window one"></div>
+            <div class="window two"></div>
+            <div class="driver"></div>
+            <div class="wheel left"></div>
+            <div class="wheel right"></div>
+        </div>
+
+        <div class="bus bus-b" id="busB">
+            <div class="bus-label">🚌 BUS B</div>
+            <div class="window one"></div>
+            <div class="window two"></div>
+            <div class="driver"></div>
+            <div class="wheel left"></div>
+            <div class="wheel right"></div>
+        </div>
+
+        <div class="road"></div>
+    </div>
+
+    <div class="clock" id="clock">
+        ⏰ Pukul 06.00
+    </div>
+
+    <!-- GARIS WAKTU -->
+    <div class="timeline">
+
+        <div class="timeline-title">
+            📅 Kelipatan Waktu
+        </div>
+
+        <div class="minutes" id="minutes">
+
+            <div class="minute active">06.00</div>
+            <div class="minute">06.12</div>
+            <div class="minute">06.20</div>
+            <div class="minute">06.24</div>
+            <div class="minute">06.36</div>
+            <div class="minute">06.40</div>
+            <div class="minute">06.48</div>
+            <div class="minute">07.00</div>
+
+        </div>
+
+    </div>
+
+    <!-- PERHITUNGAN -->
+    <div class="calculation">
+
+        <h2>🔢 Mencari KPK</h2>
+
+        <p>Kelipatan 12:</p>
+
+        <div>
+            <span class="number">12</span>
+            <span class="number">24</span>
+            <span class="number">36</span>
+            <span class="number">48</span>
+            <span class="number">60</span>
+        </div>
+
+        <p>Kelipatan 20:</p>
+
+        <div>
+            <span class="number">20</span>
+            <span class="number">40</span>
+            <span class="number">60</span>
+            <span class="number">80</span>
+        </div>
+
+        <div class="answer">
+            ⭐ KPK dari 12 dan 20 = 60 menit
+        </div>
+
+    </div>
+
+    <div class="explanation">
+
+        <strong>💡 Cara berpikir:</strong>
+
+        <ol>
+            <li>Bus A berangkat setiap <span class="highlight">12 menit</span>.</li>
+            <li>Bus B berangkat setiap <span class="highlight">20 menit</span>.</li>
+            <li>Kita mencari kelipatan yang sama dari 12 dan 20.</li>
+            <li>Kelipatan yang sama paling kecil adalah <span class="highlight">60</span>.</li>
+            <li>Artinya kedua bus bertemu lagi setelah <span class="highlight">60 menit</span>.</li>
+        </ol>
+
+        <div class="answer">
+            🕖 Jadi, kedua bus akan berangkat bersama lagi
+            pada pukul <strong>07.00</strong>.
+        </div>
+
+    </div>
+
+    <!-- KONTROL -->
+    <div class="controls">
+
+        <button class="start" onclick="startAnimation()">
+            ▶ Mulai Animasi
+        </button>
+
+        <button class="pause" onclick="pauseAnimation()">
+            ⏸ Jeda
+        </button>
+
+        <button class="reset" onclick="resetAnimation()">
+            🔄 Ulangi
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let animationTimer;
+let currentMinute = 0;
+let running = false;
+
+const busA = document.getElementById("busA");
+const busB = document.getElementById("busB");
+const clock = document.getElementById("clock");
+const minuteElements = document.querySelectorAll(".minute");
+
+/*
+    Waktu simulasi:
+    0  = 06.00
+    12 = 06.12
+    20 = 06.20
+    ...
+    60 = 07.00
+*/
+
+function formatTime(minute) {
+
+    let totalMinutes = 360 + minute;
+
+    let hour = Math.floor(totalMinutes / 60);
+    let min = totalMinutes % 60;
+
+    let hourText = hour.toString().padStart(2, "0");
+    let minText = min.toString().padStart(2, "0");
+
+    return hourText + ":" + minText;
 }
 
 
-/* MENGHENTIKAN AUDIO */
-function stopAudio() {
-    window.speechSynthesis.cancel();
+function updateAnimation() {
+
+    clock.innerHTML = "⏰ Pukul " + formatTime(currentMinute);
+
+    /*
+        Posisi bus bergerak berdasarkan waktu.
+    */
+
+    let maxPosition = 800;
+    let position = 185 + (currentMinute / 60) * maxPosition;
+
+    busA.style.left = position + "px";
+    busB.style.left = position + "px";
+
+    /*
+        Menandai kelipatan yang sedang terjadi.
+    */
+
+    minuteElements.forEach(element => {
+        element.classList.remove("active");
+    });
+
+    if (currentMinute === 0) {
+        minuteElements[0].classList.add("active");
+    }
+
+    if (currentMinute === 12) {
+        minuteElements[1].classList.add("active");
+    }
+
+    if (currentMinute === 20) {
+        minuteElements[2].classList.add("active");
+    }
+
+    if (currentMinute === 24) {
+        minuteElements[3].classList.add("active");
+    }
+
+    if (currentMinute === 36) {
+        minuteElements[4].classList.add("active");
+    }
+
+    if (currentMinute === 40) {
+        minuteElements[5].classList.add("active");
+    }
+
+    if (currentMinute === 48) {
+        minuteElements[6].classList.add("active");
+    }
+
+    if (currentMinute === 60) {
+        minuteElements[7].classList.add("active");
+
+        clock.innerHTML =
+            "🎉 Pukul 07.00 — KEDUA BUS BERANGKAT BERSAMA LAGI! 🎉";
+
+        pauseAnimation();
+    }
 }
 
 
-/* RESET ADEGAN */
-function resetScene() {
-
-    dialog1.style.display = "none";
-    dialog2.style.display = "none";
-
-    resultBox.classList.remove("show");
-}
-
-
-/* MEMULAI ANIMASI */
 function startAnimation() {
 
-    scene = 0;
+    if (running) return;
 
-    window.speechSynthesis.cancel();
+    running = true;
 
-    resetScene();
+    animationTimer = setInterval(() => {
 
-    nextScene();
+        currentMinute += 1;
+
+        updateAnimation();
+
+        if (currentMinute >= 60) {
+            pauseAnimation();
+        }
+
+    }, 80);
 }
 
 
-/* PINDAH KE ADEGAN BERIKUTNYA */
-function nextScene() {
+function pauseAnimation() {
 
-    window.speechSynthesis.cancel();
+    clearInterval(animationTimer);
 
-    resetScene();
-
-    scene++;
-
-    sceneNumber.innerHTML =
-        "Adegan: " + scene;
-
-
-    /* ADEGAN 1 */
-    if (scene === 1) {
-
-        infoBox.innerHTML =
-            "🍎🥪 Ani dan Budi memiliki makanan untuk dibagikan secara adil.";
-
-        speak(
-            "Ani dan Budi memiliki dua belas apel dan delapan belas roti. " +
-            "Mereka ingin membagikan makanan tersebut secara adil."
-        );
-    }
-
-
-    /* ADEGAN 2 */
-    else if (scene === 2) {
-
-        infoBox.innerHTML =
-            "🤔 Dilema: Berapa kelompok terbanyak yang dapat menerima makanan dengan jumlah sama?";
-
-        dialog1.style.display = "block";
-
-        dialog1.innerHTML =
-            "Kita harus membagikan semua makanan tanpa sisa!";
-
-        dialog2.style.display = "block";
-
-        dialog2.innerHTML =
-            "Tetapi setiap kelompok harus mendapatkan jumlah yang sama!";
-
-        speak(
-            "Ani dan Budi menghadapi sebuah masalah. " +
-            "Semua makanan harus habis dibagikan tanpa sisa. " +
-            "Selain itu, setiap kelompok harus mendapatkan jumlah makanan yang sama."
-        );
-    }
-
-
-    /* ADEGAN 3 */
-    else if (scene === 3) {
-
-        infoBox.innerHTML =
-            "🔢 Mari mencari faktor dari 12 dan 18!";
-
-        dialog1.style.display = "block";
-
-        dialog1.innerHTML =
-            "Faktor 12:<br>1, 2, 3, 4, 6, 12";
-
-        dialog2.style.display = "block";
-
-        dialog2.innerHTML =
-            "Faktor 18:<br>1, 2, 3, 6, 9, 18";
-
-        speak(
-            "Mari kita mencari faktor dari kedua bilangan tersebut. " +
-            "Faktor dari dua belas adalah satu, dua, tiga, empat, enam, dan dua belas. " +
-            "Faktor dari delapan belas adalah satu, dua, tiga, enam, sembilan, dan delapan belas."
-        );
-    }
-
-
-    /* ADEGAN 4 */
-    else if (scene === 4) {
-
-        infoBox.innerHTML =
-            "🔍 Faktor persekutuan: 1, 2, 3, dan 6";
-
-        dialog1.style.display = "block";
-
-        dialog1.innerHTML =
-            "Faktor yang sama:<br>1, 2, 3, dan 6";
-
-        dialog2.style.display = "block";
-
-        dialog2.innerHTML =
-            "Yang paling besar adalah 6!";
-
-        speak(
-            "Sekarang kita mencari faktor yang sama. " +
-            "Faktor persekutuan dari dua belas dan delapan belas adalah satu, dua, tiga, dan enam. " +
-            "Faktor persekutuan yang paling besar adalah enam."
-        );
-    }
-
-
-    /* ADEGAN 5 */
-    else if (scene === 5) {
-
-        infoBox.innerHTML =
-            "🎉 FPB dari 12 dan 18 adalah 6!";
-
-        resultBox.classList.add("show");
-
-        speak(
-            "Jadi, Faktor Persekutuan Terbesar dari dua belas dan delapan belas adalah enam. " +
-            "Dengan demikian, makanan dapat dibagikan menjadi enam kelompok dengan adil."
-        );
-    }
-
-
-    /* ADEGAN 6 */
-    else if (scene === 6) {
-
-        infoBox.innerHTML =
-            "📚 Kesimpulan: FPB digunakan untuk membagi benda ke dalam kelompok terbanyak dengan jumlah yang sama.";
-
-        speak(
-            "Kesimpulannya, Faktor Persekutuan Terbesar atau FPB dapat digunakan untuk membagi benda ke dalam kelompok sebanyak mungkin, dengan jumlah yang sama dan tanpa sisa."
-        );
-    }
-
-
-    /* SELESAI */
-    else {
-
-        scene = 0;
-
-        infoBox.innerHTML =
-            "🎉 Hebat! Kamu sudah belajar FPB.";
-
-        sceneNumber.innerHTML =
-            "Animasi selesai";
-
-        speak(
-            "Hebat! Kamu sudah memahami bagaimana menggunakan FPB dalam masalah pembagian makanan."
-        );
-    }
+    running = false;
 }
+
+
+function resetAnimation() {
+
+    pauseAnimation();
+
+    currentMinute = 0;
+
+    busA.style.left = "185px";
+    busB.style.left = "185px";
+
+    clock.innerHTML = "⏰ Pukul 06.00";
+
+    minuteElements.forEach(element => {
+        element.classList.remove("active");
+    });
+
+    minuteElements[0].classList.add("active");
+}
+
+
+updateAnimation();
+
 </script>
+
+</body>
+</html>
