@@ -4,1035 +4,4233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Animasi KPK Bus Kota</title>
+<title>KPK & FPB — Soal Cerita Interaktif</title>
 
 <style>
-
-* {
-    box-sizing: border-box;
+:root{
+  --green:#2f7d46;
+  --green2:#4caf50;
+  --dark:#24402d;
+  --light:#eff9ed;
+  --cream:#fffdf6;
+  --yellow:#ffd85c;
+  --purple:#8b5cf6;
+  --blue:#4f9cf9;
+  --red:#e96868;
+  --muted:#66776d;
+  --white:#ffffff;
+  --line:#dcebdc;
+  --shadow:0 18px 45px rgba(39,88,53,.12);
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #dff6ff, #fff3d6);
+*{
+  box-sizing:border-box;
 }
 
-.container {
-    max-width: 1100px;
-    width: 92%;
-    margin: 20px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+html,
+body{
+  margin:0;
+  min-height:100%;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--dark);
 }
 
-h1 {
-    text-align: center;
-    color: #1565c0;
+body{
+  background:linear-gradient(145deg,#f7fff5,#edf8ef);
 }
 
-.problem {
-    background: #fff8e1;
-    padding: 18px;
-    border-radius: 15px;
-    border-left: 7px solid #ff9800;
-    font-size: 18px;
-    line-height: 1.6;
+button,
+input,
+textarea{
+  font:inherit;
 }
 
-.clock {
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    color: #1565c0;
-    margin: 20px;
+button{
+  cursor:pointer;
+  border:0;
 }
 
-.message {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    min-height: 40px;
-    color: #e65100;
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:25px 5vw 50px;
+  position:relative;
+  overflow:hidden;
 }
 
+.screen.active{
+  display:block;
+  animation:screenIn .35s ease;
+}
+
+@keyframes screenIn{
+  from{
+    opacity:0;
+    transform:translateX(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.container{
+  max-width:1180px;
+  margin:auto;
+  position:relative;
+  z-index:2;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:900;
+  color:var(--green);
+}
+
+.stats{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.stat{
+  background:#ffffff;
+  padding:9px 13px;
+  border-radius:15px;
+  box-shadow:0 8px 22px rgba(0,0,0,.06);
+  font-weight:900;
+}
+
+.btn{
+  padding:14px 20px;
+  border-radius:16px;
+  font-weight:900;
+  transition:.2s;
+  box-shadow:0 8px 20px rgba(0,0,0,.07);
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  background:var(--green2);
+  color:#ffffff;
+}
+
+.btn-secondary{
+  background:#ffffff;
+  color:var(--green);
+}
+
+.btn-purple{
+  background:var(--purple);
+  color:#ffffff;
+}
+
+.btn-danger{
+  background:#fff0ef;
+  color:#b33f3f;
+}
+
+.btn-blue{
+  background:var(--blue);
+  color:#ffffff;
+}
+
+.btn-orange{
+  background:#f39c12;
+  color:#ffffff;
+}
 
 /* =========================
-   AREA ANIMASI
+   HOME
 ========================= */
 
-.scene {
-
-    height: 380px;
-    position: relative;
-    overflow: hidden;
-
-    background:
-    linear-gradient(
-        #87ceeb 0%,
-        #bfefff 65%,
-        #7bc96f 65%
-    );
-
-    border-radius: 20px;
+.hero{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:35px;
+  align-items:center;
+  padding-top:5vh;
 }
 
-
-/* Matahari */
-
-.sun {
-
-    width: 70px;
-    height: 70px;
-
-    background: #ffd54f;
-
-    border-radius: 50%;
-
-    position: absolute;
-
-    right: 60px;
-    top: 30px;
-
-    box-shadow: 0 0 25px #ffca28;
+.badge{
+  display:inline-block;
+  background:#e6f5e5;
+  color:var(--green);
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
 }
 
-
-/* Awan */
-
-.cloud {
-
-    position: absolute;
-
-    width: 120px;
-    height: 40px;
-
-    background: white;
-
-    border-radius: 30px;
-
-    left: 150px;
-    top: 50px;
+.hero h1{
+  font-size:clamp(45px,7vw,80px);
+  line-height:.95;
+  margin:18px 0;
+  color:var(--green);
 }
 
-.cloud:before,
-.cloud:after {
-
-    content: "";
-
-    position: absolute;
-
-    background: white;
-
-    border-radius: 50%;
+.hero h1 span{
+  color:#7c57d7;
 }
 
-.cloud:before {
-
-    width: 50px;
-    height: 50px;
-
-    left: 20px;
-    top: -25px;
+.hero p{
+  font-size:20px;
+  line-height:1.6;
+  color:var(--muted);
+  max-width:650px;
 }
 
-.cloud:after {
-
-    width: 60px;
-    height: 60px;
-
-    right: 15px;
-    top: -30px;
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:25px;
 }
 
-
-/* TERMINAL */
-
-.terminal {
-
-    position: absolute;
-
-    left: 30px;
-
-    bottom: 130px;
-
-    width: 160px;
-
-    height: 100px;
-
-    background: #ffcc80;
-
-    border: 4px solid #795548;
-
-    text-align: center;
-
-    padding-top: 35px;
-
-    font-weight: bold;
-
-    font-size: 20px;
-
-    z-index: 5;
+.hero-art{
+  min-height:400px;
+  border-radius:40px;
+  background:linear-gradient(160deg,#bfe8bc,#e9f8d8);
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
 }
 
-
-/* Jalan */
-
-.road {
-
-    position: absolute;
-
-    bottom: 0;
-
-    width: 100%;
-
-    height: 130px;
-
-    background: #424242;
+.explorer{
+  font-size:145px;
+  animation:bob 3s ease-in-out infinite;
+  filter:drop-shadow(0 15px 10px rgba(0,0,0,.1));
 }
 
-.road:after {
-
-    content: "";
-
-    position: absolute;
-
-    top: 60px;
-
-    width: 100%;
-
-    height: 8px;
-
-    background:
-
-    repeating-linear-gradient(
-
-        to right,
-
-        white 0px,
-        white 60px,
-
-        transparent 60px,
-        transparent 120px
-    );
+.tree{
+  position:absolute;
+  font-size:95px;
+  bottom:20px;
 }
 
+.tree.left{
+  left:20px;
+}
+
+.tree.right{
+  right:15px;
+}
+
+@keyframes bob{
+  50%{
+    transform:translateY(-12px);
+  }
+}
 
 /* =========================
-   BUS
+   GENERAL
 ========================= */
 
-.bus {
-
-    position: absolute;
-
-    width: 120px;
-
-    height: 60px;
-
-    border-radius: 12px;
-
-    left: 200px;
-
-    z-index: 10;
-
-    display: none;
-
-    transition: none;
+.section-title{
+  text-align:center;
+  font-size:38px;
+  color:var(--green);
+  margin:25px 0 8px;
 }
 
-
-/* BUS A */
-
-.bus-a {
-
-    background: #ef5350;
-
-    bottom: 80px;
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  line-height:1.6;
+  max-width:760px;
+  margin:0 auto 28px;
 }
 
-
-/* BUS B */
-
-.bus-b {
-
-    background: #2196f3;
-
-    bottom: 10px;
+.card{
+  background:#ffffff;
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--shadow);
 }
-
-
-/* Jendela */
-
-.window {
-
-    position: absolute;
-
-    width: 28px;
-
-    height: 22px;
-
-    background: #dff6ff;
-
-    border: 2px solid #455a64;
-
-    top: 8px;
-
-    border-radius: 4px;
-}
-
-.window1 {
-    left: 10px;
-}
-
-.window2 {
-    left: 45px;
-}
-
-.window3 {
-    left: 80px;
-}
-
-
-/* Roda */
-
-.wheel {
-
-    width: 22px;
-
-    height: 22px;
-
-    background: black;
-
-    border-radius: 50%;
-
-    position: absolute;
-
-    bottom: -10px;
-
-    border: 4px solid #777;
-}
-
-.wheel-left {
-
-    left: 15px;
-}
-
-.wheel-right {
-
-    right: 15px;
-}
-
-
-/* Label Bus */
-
-.bus-label {
-
-    position: absolute;
-
-    top: -30px;
-
-    background: white;
-
-    padding: 5px 10px;
-
-    border-radius: 10px;
-
-    font-weight: bold;
-}
-
 
 /* =========================
-   TIMELINE
+   HOW TO PLAY
 ========================= */
 
-.timeline {
-
-    margin-top: 20px;
-
-    background: #f1f8e9;
-
-    padding: 20px;
-
-    border-radius: 20px;
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:18px;
 }
 
-.timeline h2 {
-
-    text-align: center;
-
-    color: #2e7d32;
+.info-card{
+  background:#f8fcf6;
+  border:2px solid #e1f0df;
+  border-radius:22px;
+  padding:22px;
 }
 
-.timeline-item {
-
-    display: inline-block;
-
-    padding: 10px 15px;
-
-    margin: 5px;
-
-    background: white;
-
-    border: 2px solid #90caf9;
-
-    border-radius: 10px;
-
-    font-weight: bold;
+.info-card .icon{
+  font-size:42px;
 }
 
-.active {
-
-    background: #66bb6a !important;
-
-    color: white;
-
-    transform: scale(1.1);
+.info-card h3{
+  margin:10px 0 7px;
 }
 
+.info-card p{
+  color:var(--muted);
+  line-height:1.5;
+}
 
 /* =========================
-   TOMBOL
+   MAP
 ========================= */
 
-.controls {
-
-    text-align: center;
-
-    margin-top: 25px;
+.map-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
 }
 
-button {
-
-    border: none;
-
-    padding: 13px 25px;
-
-    margin: 5px;
-
-    border-radius: 25px;
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-    cursor: pointer;
+.case-card{
+  position:relative;
+  text-align:left;
+  min-height:210px;
+  border:2px solid #e0eee0;
+  background:#ffffff;
+  border-radius:24px;
+  padding:21px;
+  box-shadow:var(--shadow);
+  transition:.2s;
 }
 
-.start {
-
-    background: #43a047;
-
-    color: white;
+.case-card:hover:not(.locked){
+  transform:translateY(-5px);
 }
 
-.reset {
-
-    background: #e53935;
-
-    color: white;
+.case-card.locked{
+  opacity:.52;
+  filter:grayscale(.6);
+  cursor:not-allowed;
 }
 
-.pause {
-
-    background: #fb8c00;
-
-    color: white;
+.case-no{
+  font-size:13px;
+  font-weight:900;
+  color:var(--green);
 }
 
+.case-card h3{
+  margin:10px 0 7px;
+  font-size:20px;
+}
 
-/* HASIL */
+.case-card p{
+  color:var(--muted);
+  line-height:1.4;
+}
 
-.answer {
+.lock{
+  position:absolute;
+  right:17px;
+  top:17px;
+  font-size:24px;
+}
 
-    margin-top: 25px;
+/* =========================
+   GAME
+========================= */
 
-    padding: 20px;
+.case-shell{
+  max-width:1080px;
+  margin:auto;
+}
 
-    background: #fff3cd;
+.progress-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:18px;
+}
 
-    border-radius: 20px;
+.case-label{
+  background:var(--green);
+  color:#ffffff;
+  padding:11px 17px;
+  border-radius:14px;
+  font-weight:900;
+  white-space:nowrap;
+}
 
-    text-align: center;
+.progress{
+  height:12px;
+  background:#dcebdc;
+  border-radius:20px;
+  overflow:hidden;
+  flex:1;
+}
 
-    font-size: 22px;
+.progress > div{
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    #45a951,
+    #ffd34e,
+    #5ba8ef
+  );
+  transition:.4s;
+}
 
-    font-weight: bold;
+.case-header{
+  background:#ffffff;
+  border-radius:28px;
+  padding:23px 27px;
+  box-shadow:var(--shadow);
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
 
-    display: none;
+.case-emoji{
+  width:105px;
+  height:105px;
+  border-radius:25px;
+  background:#f0faed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:62px;
+  flex:none;
+}
+
+.case-header h2{
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:30px;
+}
+
+.case-header p{
+  margin:0;
+  line-height:1.6;
+  font-size:18px;
+  color:#3d4e44;
+}
+
+.step-card{
+  margin-top:20px;
+  background:#ffffff;
+  border-radius:30px;
+  box-shadow:var(--shadow);
+  padding:31px;
+  min-height:430px;
+}
+
+.step-kicker{
+  display:inline-block;
+  background:#e9f7e8;
+  color:var(--green);
+  padding:8px 13px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:13px;
+}
+
+.step-card h2{
+  font-size:33px;
+  margin:15px 0 10px;
+}
+
+.question{
+  font-size:21px;
+  line-height:1.6;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+  margin:24px 0;
+}
+
+.option{
+  padding:17px;
+  border:2px solid #dce9dc;
+  border-radius:18px;
+  background:#fbfefb;
+  text-align:left;
+  font-weight:800;
+  transition:.2s;
+}
+
+.option:hover{
+  border-color:#7ac37e;
+  transform:translateY(-2px);
+}
+
+.option.selected{
+  border-color:var(--green2);
+  background:#eaf8e9;
+}
+
+.feedback{
+  padding:16px 19px;
+  border-radius:18px;
+  margin-top:17px;
+  display:none;
+  line-height:1.55;
+  font-weight:700;
+}
+
+.feedback.show{
+  display:block;
+  animation:pop .3s;
+}
+
+.feedback.good{
+  background:#eaf8e9;
+  color:#246b35;
+}
+
+.feedback.bad{
+  background:#fff0ef;
+  color:#a63e38;
+}
+
+@keyframes pop{
+  from{
+    transform:scale(.97);
+    opacity:0;
+  }
+
+  to{
+    transform:none;
+    opacity:1;
+  }
+}
+
+.step-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:27px;
+}
+
+.step-actions .right{
+  display:flex;
+  gap:10px;
+}
+
+.grow-box{
+  background:linear-gradient(
+    135deg,
+    #effbea,
+    #f8f1ff
+  );
+  border-radius:23px;
+  padding:22px;
+  margin-top:20px;
+}
+
+.grow-box h3{
+  margin-top:0;
+  color:var(--green);
+}
+
+.work-box{
+  background:#f8fcf6;
+  border:2px solid #e1eee0;
+  border-radius:20px;
+  padding:20px;
+  margin:18px 0;
+}
+
+.work-box h3{
+  margin-top:0;
+  color:var(--green);
+}
+
+.input-answer{
+  width:220px;
+  padding:16px;
+  border:2px solid #d7e6d7;
+  border-radius:16px;
+  outline:none;
+  font-size:22px;
+  text-align:center;
+  font-weight:900;
+}
+
+.input-answer:focus{
+  border-color:var(--green2);
+}
+
+.answer-area{
+  width:100%;
+  min-height:150px;
+  padding:16px;
+  border:2px solid #d7e6d7;
+  border-radius:16px;
+  outline:none;
+  font:inherit;
+  font-size:17px;
+  line-height:1.5;
+  resize:vertical;
+}
+
+.answer-area:focus{
+  border-color:var(--green2);
+}
+
+.keyword-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-top:20px;
+}
+
+.keyword-button{
+  padding:30px;
+  border-radius:25px;
+  font-size:28px;
+  font-weight:900;
+  background:#ffffff;
+  border:3px solid #dce9dc;
+  transition:.2s;
+}
+
+.keyword-button:hover{
+  transform:translateY(-3px);
+}
+
+.keyword-button.kpk{
+  color:#2563eb;
+}
+
+.keyword-button.fpb{
+  color:#16a34a;
+}
+
+.keyword-button.selected{
+  border-color:var(--green);
+  background:#eaf8e9;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-box{
+  max-width:650px;
+  margin:40px auto;
+  background:#ffffff;
+  border-radius:30px;
+  padding:35px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+
+.profile-box .big-icon{
+  font-size:75px;
+}
+
+.profile-box input{
+  width:100%;
+  padding:17px;
+  border:2px solid #d8e7d8;
+  border-radius:16px;
+  font-size:19px;
+  margin:18px 0;
+  outline:none;
+}
+
+.profile-box input:focus{
+  border-color:var(--green2);
+}
+
+.name-hint{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.metric{
+  background:#ffffff;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.metric .num{
+  font-size:32px;
+  font-weight:900;
+  color:var(--green);
+}
+
+.metric small{
+  color:var(--muted);
+}
+
+.table-wrap{
+  overflow:auto;
+  background:#ffffff;
+  border-radius:25px;
+  box-shadow:var(--shadow);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:760px;
+}
+
+th,
+td{
+  padding:15px;
+  border-bottom:1px solid #e8efe8;
+  text-align:left;
+}
+
+th{
+  background:#f1f8ef;
+  color:var(--green);
+}
+
+tr:hover td{
+  background:#fbfef9;
+}
+
+.progress-mini{
+  height:9px;
+  background:#e3eee2;
+  border-radius:10px;
+  overflow:hidden;
+  min-width:120px;
+}
+
+.progress-mini span{
+  display:block;
+  height:100%;
+  background:var(--green2);
+}
+
+.empty{
+  padding:40px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.dashboard-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
+
+/* =========================
+   COMPLETE
+========================= */
+
+.complete{
+  text-align:center;
+  padding-top:8vh;
+}
+
+.trophy{
+  font-size:110px;
+  animation:bob 2.5s infinite;
+}
+
+.stars-big{
+  font-size:40px;
+  letter-spacing:5px;
+}
+
+.complete h1{
+  font-size:54px;
+  color:var(--green);
+}
+
+.score-circle{
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  background:#ffffff;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin:20px auto;
+}
+
+.score-circle strong{
+  font-size:42px;
+  color:var(--green);
+}
+
+.score-circle span{
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+.confetti{
+  position:fixed;
+  top:-20px;
+  font-size:24px;
+  z-index:99;
+  animation:fall 2.5s linear forwards;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+
+.toast{
+  position:fixed;
+  top:22px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:1000;
+  max-width:90%;
+  padding:16px 20px;
+  border-radius:17px;
+  background:#ffffff;
+  box-shadow:0 15px 35px rgba(0,0,0,.15);
+  font-weight:800;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .how-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .map-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:600px){
+
+  .screen{
+    padding:18px 4vw 35px;
+  }
+
+  .map-grid,
+  .options,
+  .how-grid,
+  .keyword-buttons{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:52px;
+  }
+
+  .case-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .step-card{
+    padding:22px;
+  }
+
+  .step-actions{
+    flex-direction:column;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .progress-row{
+    flex-wrap:wrap;
+  }
+
+  .progress{
+    order:3;
+    flex-basis:100%;
+  }
+
 }
 
 </style>
 </head>
 
-
 <body>
 
-<div class="container">
 
-<h1>🚌 Animasi KPK Bus Kota</h1>
+<!-- =====================================================
+     HOME
+===================================================== -->
 
+<section id="home" class="screen active">
 
-<div class="problem">
+  <div class="container">
 
-<strong>Masalah:</strong><br><br>
+    <div class="topbar">
 
-Bus kota A berangkat dari terminal setiap
-<strong>12 menit sekali</strong>.
+      <div class="logo">
+        🧮 KPK & FPB MISSION
+      </div>
 
-<br>
+      <div id="homeStats" class="stats"></div>
 
-Bus kota B berangkat setiap
-<strong>20 menit sekali</strong>.
+    </div>
 
-<br><br>
 
-Jika kedua bus berangkat bersama pada pukul
-<strong>06.00</strong>,
+    <div class="hero">
 
-kapan mereka akan berangkat bersama lagi?
+      <div>
 
-</div>
+        <span class="badge">
+          SOAL CERITA KPK & FPB
+        </span>
 
+        <h1>
+          Belajar.<br>
+          Berpikir.<br>
+          <span>Menyelesaikan!</span>
+        </h1>
 
-<div class="clock" id="clock">
+        <p>
+          Mari selesaikan soal cerita KPK dan FPB
+          dengan langkah yang sistematis dan mudah dipahami.
+        </p>
 
-⏰ Pukul 06.00
 
-</div>
+        <div class="hero-buttons">
 
+          <button
+            class="btn btn-primary"
+            onclick="startMission()">
 
-<div class="message" id="message">
+            🚀 Mulai Belajar
 
-Klik tombol mulai untuk melihat animasi!
+          </button>
 
-</div>
 
+          <button
+            class="btn btn-secondary"
+            onclick="go('how')">
 
-<!-- =====================
-     ANIMASI
-===================== -->
+            📖 Cara Mengerjakan
 
-<div class="scene">
+          </button>
 
-<div class="sun"></div>
 
-<div class="cloud"></div>
+          <button
+            class="btn btn-purple"
+            onclick="go('lab')">
 
+            🧪 Laboratorium KPK & FPB
 
-<div class="terminal">
+          </button>
 
-🏢<br>
 
-TERMINAL
+          <button
+            class="btn btn-blue"
+            onclick="go('teacher')">
 
-</div>
+            👩‍🏫 Dashboard
 
+          </button>
 
-<!-- BUS A -->
+        </div>
 
-<div class="bus bus-a" id="busA">
+      </div>
 
-<div class="bus-label">
 
-🚌 BUS A
+      <div class="hero-art">
 
-</div>
+        <div class="tree left">
+          🌳
+        </div>
 
-<div class="window window1"></div>
+        <div class="explorer">
+          🧑‍🏫
+        </div>
 
-<div class="window window2"></div>
+        <div class="tree right">
+          📚
+        </div>
 
-<div class="window window3"></div>
+      </div>
 
-<div class="wheel wheel-left"></div>
+    </div>
 
-<div class="wheel wheel-right"></div>
+  </div>
 
-</div>
+</section>
 
 
-<!-- BUS B -->
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
-<div class="bus bus-b" id="busB">
+<section id="profile" class="screen">
 
-<div class="bus-label">
+  <div class="container">
 
-🚌 BUS B
+    <div class="topbar">
 
-</div>
+      <div class="logo">
+        👤 PROFIL SISWA
+      </div>
 
-<div class="window window1"></div>
+      <button
+        class="btn btn-secondary"
+        onclick="go('home')">
 
-<div class="window window2"></div>
+        ← Beranda
 
-<div class="window window3"></div>
+      </button>
 
-<div class="wheel wheel-left"></div>
+    </div>
 
-<div class="wheel wheel-right"></div>
 
-</div>
+    <div class="profile-box">
 
+      <div class="big-icon">
+        🧑‍🎓
+      </div>
 
-<div class="road"></div>
+      <h1>
+        Siapa nama siswa hari ini?
+      </h1>
 
-</div>
 
+      <p class="name-hint">
 
-<!-- =====================
-     TIMELINE
-===================== -->
+        Masukkan nama siswa untuk menyimpan
+        progres dan skor belajar.
 
-<div class="timeline">
+      </p>
 
-<h2>📅 Perjalanan Waktu</h2>
 
-<div class="timeline-item" id="t0">
-06.00
-</div>
+      <input
+        id="studentNameInput"
+        type="text"
+        maxlength="40"
+        placeholder="Masukkan nama siswa">
 
-<div class="timeline-item" id="t12">
-06.12
-</div>
 
-<div class="timeline-item" id="t20">
-06.20
-</div>
+      <div>
 
-<div class="timeline-item" id="t24">
-06.24
-</div>
+        <button
+          class="btn btn-primary"
+          onclick="enterStudent()">
 
-<div class="timeline-item" id="t36">
-06.36
-</div>
+          🚀 Mulai Mengerjakan
 
-<div class="timeline-item" id="t40">
-06.40
-</div>
+        </button>
 
-<div class="timeline-item" id="t48">
-06.48
-</div>
+      </div>
 
-<div class="timeline-item" id="t60">
-07.00
-</div>
 
-</div>
+      <p
+        id="profileNotice"
+        class="name-hint">
 
+      </p>
 
-<!-- HASIL -->
+    </div>
 
-<div class="answer" id="answer">
+  </div>
 
-🎉 KEDUA BUS BERANGKAT BERSAMA LAGI! 🎉
+</section>
 
-<br><br>
 
-KPK dari 12 dan 20 = 60 menit
+<!-- =====================================================
+     HOW TO PLAY
+===================================================== -->
 
-<br><br>
+<section id="how" class="screen">
 
-🕖 Jadi kedua bus berangkat bersama lagi pada pukul
+  <div class="container">
 
-<strong>07.00</strong>
+    <div class="topbar">
 
-</div>
+      <div class="logo">
+        📖 LANGKAH PENGERJAAN
+      </div>
 
 
-<!-- TOMBOL -->
+      <button
+        class="btn btn-secondary"
+        onclick="go('home')">
 
-<div class="controls">
+        ← Beranda
 
-<button class="start" onclick="startAnimation()">
+      </button>
 
-▶ Mulai Animasi
+    </div>
 
-</button>
 
+    <h1 class="section-title">
+      Langkah Penyelesaian Soal
+    </h1>
 
-<button class="pause" onclick="pauseAnimation()">
 
-⏸ Jeda
+    <p class="subtitle">
 
-</button>
+      Kerjakan setiap soal dengan lima langkah berikut.
 
+    </p>
 
-<button class="reset" onclick="resetAnimation()">
 
-🔄 Ulangi
+    <div class="how-grid">
 
-</button>
 
-</div>
+      <div class="info-card">
 
-</div>
+        <div class="icon">
+          📝
+        </div>
+
+        <h3>
+          1. Diketahui & Ditanyakan
+        </h3>
+
+        <p>
+          Tuliskan informasi yang diketahui
+          dan apa yang ditanyakan dalam soal.
+        </p>
+
+      </div>
+
+
+      <div class="info-card">
+
+        <div class="icon">
+          🔎
+        </div>
+
+        <h3>
+          2. Kata Kunci
+        </h3>
+
+        <p>
+          Tentukan apakah masalah menggunakan
+          konsep KPK atau FPB.
+        </p>
+
+      </div>
+
+
+      <div class="info-card">
+
+        <div class="icon">
+          🌳
+        </div>
+
+        <h3>
+          3. Faktorisasi
+        </h3>
+
+        <p>
+          Buat pohon faktor atau
+          faktorisasi prima dari bilangan.
+        </p>
+
+      </div>
+
+
+      <div class="info-card">
+
+        <div class="icon">
+          🧮
+        </div>
+
+        <h3>
+          4. Hitung
+        </h3>
+
+        <p>
+          Hitung nilai KPK atau FPB
+          dengan teliti dan cermat.
+        </p>
+
+      </div>
+
+
+      <div class="info-card">
+
+        <div class="icon">
+          ✍️
+        </div>
+
+        <h3>
+          5. Kesimpulan
+        </h3>
+
+        <p>
+          Tuliskan jawaban akhir sesuai
+          dengan konteks pertanyaan.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAP
+===================================================== -->
+
+<section id="map" class="screen">
+
+  <div class="container">
+
+    <div class="topbar">
+
+      <div class="logo">
+        🗺️ DAFTAR SOAL
+      </div>
+
+      <div
+        id="mapStats"
+        class="stats">
+
+      </div>
+
+    </div>
+
+
+    <h1 class="section-title">
+      Pilih Misi Soal
+    </h1>
+
+
+    <p
+      id="mapSubtitle"
+      class="subtitle">
+
+    </p>
+
+
+    <div
+      id="mapGrid"
+      class="map-grid">
+
+    </div>
+
+
+    <div style="text-align:center;margin-top:25px">
+
+      <button
+        class="btn btn-secondary"
+        onclick="go('home')">
+
+        ← Beranda
+
+      </button>
+
+
+      <button
+        class="btn btn-purple"
+        onclick="go('lab')">
+
+        🧪 Laboratorium
+
+      </button>
+
+
+      <button
+        class="btn btn-blue"
+        onclick="go('teacher')">
+
+        👩‍🏫 Dashboard
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     STRATEGY LAB
+===================================================== -->
+
+<section id="lab" class="screen">
+
+  <div class="container">
+
+    <div class="topbar">
+
+      <div class="logo">
+        🧪 LABORATORIUM KPK & FPB
+      </div>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="go('home')">
+
+        ← Beranda
+
+      </button>
+
+    </div>
+
+
+    <h1 class="section-title">
+      Coba Menghitung KPK & FPB
+    </h1>
+
+
+    <p class="subtitle">
+
+      Masukkan dua bilangan untuk melihat
+      faktor, kelipatan, FPB, dan KPK.
+
+    </p>
+
+
+    <div class="card">
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+
+        <input
+          id="labA"
+          class="input-answer"
+          type="number"
+          min="1"
+          value="12">
+
+
+        <input
+          id="labB"
+          class="input-answer"
+          type="number"
+          min="1"
+          value="18">
+
+
+        <button
+          class="btn btn-primary"
+          onclick="runLab()">
+
+          🔍 Hitung
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="labResult"
+        class="grow-box">
+
+        Masukkan dua bilangan kemudian tekan tombol Hitung.
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     GAME
+===================================================== -->
+
+<section id="game" class="screen">
+
+  <div class="case-shell">
+
+    <div class="topbar">
+
+      <div class="logo">
+
+        🧮 KPK & FPB
+        <span id="studentBadge"></span>
+
+      </div>
+
+
+      <div
+        id="gameStats"
+        class="stats">
+
+      </div>
+
+    </div>
+
+
+    <div class="progress-row">
+
+      <div
+        id="caseLabel"
+        class="case-label">
+
+        SOAL 1
+
+      </div>
+
+
+      <div class="progress">
+
+        <div id="progressBar"></div>
+
+      </div>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="go('map')">
+
+        ← Daftar Soal
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="caseHeader"
+      class="case-header">
+
+    </div>
+
+
+    <div
+      id="stepCard"
+      class="step-card">
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     TEACHER DASHBOARD
+===================================================== -->
+
+<section id="teacher" class="screen">
+
+  <div class="container">
+
+    <div class="topbar">
+
+      <div class="logo">
+        👩‍🏫 DASHBOARD SISWA
+      </div>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="go('home')">
+
+        ← Beranda
+
+      </button>
+
+    </div>
+
+
+    <h1 class="section-title">
+      Progress Belajar Siswa
+    </h1>
+
+
+    <p class="subtitle">
+
+      Data progres siswa tersimpan
+      pada browser perangkat ini.
+
+    </p>
+
+
+    <div
+      id="dashboardMetrics"
+      class="dashboard-grid">
+
+    </div>
+
+
+    <div class="dashboard-actions">
+
+      <button
+        class="btn btn-blue"
+        onclick="exportCSV()">
+
+        ⬇️ Export CSV
+
+      </button>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="refreshDashboard()">
+
+        🔄 Refresh
+
+      </button>
+
+
+      <button
+        class="btn btn-danger"
+        onclick="clearAllStudentData()">
+
+        🗑️ Hapus Semua Data
+
+      </button>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Siswa</th>
+            <th>Skor</th>
+            <th>Bintang</th>
+            <th>Soal Selesai</th>
+            <th>Progress</th>
+            <th>Terakhir Aktif</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody
+          id="studentTableBody">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMPLETE
+===================================================== -->
+
+<section id="complete" class="screen">
+
+  <div class="container complete">
+
+    <div class="trophy">
+      🏆
+    </div>
+
+
+    <div
+      id="finalStars"
+      class="stars-big">
+
+      ⭐⭐⭐⭐⭐⭐⭐
+
+    </div>
+
+
+    <h1>
+      Semua Soal Selesai!
+    </h1>
+
+
+    <div
+      id="finalScoreCircle"
+      class="score-circle">
+
+      <strong>
+        100
+      </strong>
+
+      <span>
+        SKOR
+      </span>
+
+    </div>
+
+
+    <p
+      id="finalText"
+      class="subtitle">
+
+    </p>
+
+
+    <div
+      class="card"
+      style="max-width:700px;margin:20px auto">
+
+      <h2>
+        🌱 Langkah Hebatmu
+      </h2>
+
+
+      <p>
+
+        Kamu telah belajar menyelesaikan soal
+        menggunakan langkah:
+
+      </p>
+
+
+      <p>
+
+        <b>
+          Diketahui & Ditanyakan
+          → Kata Kunci
+          → Faktorisasi
+          → Menghitung
+          → Kesimpulan
+        </b>
+
+      </p>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary"
+      onclick="go('map')">
+
+      🗺️ Lihat Soal
+
+    </button>
+
+
+    <button
+      class="btn btn-blue"
+      onclick="go('teacher')">
+
+      👩‍🏫 Dashboard
+
+    </button>
+
+
+    <button
+      class="btn btn-secondary"
+      onclick="restartCurrentStudent()">
+
+      🔄 Mulai Lagi
+
+    </button>
+
+  </div>
+
+</section>
+
 
 
 <script>
 
-/* =========================
-   DATA WAKTU
-========================= */
+/* =====================================================
+   DATA SOAL
+===================================================== */
 
-const events = [
+const cases = [
 
-{
-minute: 0,
-time: "06.00",
-busA: true,
-busB: true
-},
+  {
+    title:"Bus Kota Bersama",
+    emoji:"🚌",
 
-{
-minute: 12,
-time: "06.12",
-busA: true,
-busB: false
-},
+    story:
+    "Bus kota A berangkat dari terminal setiap 12 menit sekali. " +
+    "Bus kota B berangkat dari terminal setiap 18 menit sekali. " +
+    "Jika kedua bus berangkat bersamaan pada pukul 06.00, " +
+    "pada pukul berapa mereka akan berangkat bersamaan lagi?",
 
-{
-minute: 20,
-time: "06.20",
-busA: false,
-busB: true
-},
+    numbers:[12,18],
 
-{
-minute: 24,
-time: "06.24",
-busA: true,
-busB: false
-},
+    answer:36,
 
-{
-minute: 36,
-time: "06.36",
-busA: true,
-busB: false
-},
+    type:"kpk",
 
-{
-minute: 40,
-time: "06.40",
-busA: false,
-busB: true
-},
+    keywordHint:
+    "Kata kunci: berangkat bersamaan lagi, kejadian berulang, waktu bertemu kembali.",
 
-{
-minute: 48,
-time: "06.48",
-busA: true,
-busB: false
-},
+    factorHint:
+    "Buat faktorisasi prima dari 12 dan 18.",
 
-{
-minute: 60,
-time: "07.00",
-busA: true,
-busB: true
-}
+    calculationHint:
+    "Untuk KPK, ambil semua faktor prima dengan pangkat terbesar.",
+
+    conclusionHint:
+    "Tuliskan pukul berapa kedua bus berangkat bersama lagi."
+  },
+
+
+  {
+    title:"Membagikan Permen",
+    emoji:"🍬",
+
+    story:
+    "Rina memiliki 36 permen cokelat dan 48 permen susu. " +
+    "Ia ingin membagikan permen tersebut kepada teman-temannya " +
+    "dalam jumlah yang sama banyak tanpa sisa. " +
+    "Berapa banyak teman paling banyak yang dapat menerima permen tersebut? " +
+    "Berapa permen yang diterima setiap teman?",
+
+    numbers:[36,48],
+
+    answer:12,
+
+    type:"fpb",
+
+    keywordHint:
+    "Kata kunci: membagikan sama banyak, tanpa sisa, jumlah kelompok sebanyak mungkin.",
+
+    factorHint:
+    "Buat faktorisasi prima dari 36 dan 48.",
+
+    calculationHint:
+    "Untuk FPB, ambil faktor prima yang sama dengan pangkat terkecil.",
+
+    conclusionHint:
+    "Tuliskan jumlah teman dan jumlah permen yang diterima setiap teman."
+  },
+
+
+  {
+    title:"Menyusun Buku",
+    emoji:"📚",
+
+    story:
+    "Andi memiliki 60 buku cerita dan 90 buku pengetahuan. " +
+    "Ia ingin menyusun buku-buku tersebut dalam rak " +
+    "dengan jumlah buku yang sama dan jenis buku tidak boleh dicampur. " +
+    "Berapa banyak buku paling banyak yang dapat disusun di setiap rak? " +
+    "Berapa rak yang dibutuhkan untuk masing-masing jenis buku?",
+
+    numbers:[60,90],
+
+    answer:30,
+
+    type:"fpb",
+
+    keywordHint:
+    "Kata kunci: jumlah sama, tidak boleh dicampur, pembagian tanpa sisa.",
+
+    factorHint:
+    "Buat faktorisasi prima dari 60 dan 90.",
+
+    calculationHint:
+    "Cari FPB dari 60 dan 90.",
+
+    conclusionHint:
+    "Tuliskan jumlah buku setiap rak dan jumlah rak yang diperlukan."
+  },
+
+
+  {
+    title:"Senam dan Pramuka",
+    emoji:"🏃",
+
+    story:
+    "Kelas 5 mengadakan kegiatan senam setiap 6 hari sekali " +
+    "dan pramuka setiap 8 hari sekali. " +
+    "Jika hari ini kedua kegiatan dilaksanakan bersamaan, " +
+    "setelah berapa hari kedua kegiatan tersebut akan dilakukan bersama-sama lagi?",
+
+    numbers:[6,8],
+
+    answer:24,
+
+    type:"kpk",
+
+    keywordHint:
+    "Kata kunci: kegiatan berulang dan dilakukan bersama-sama lagi.",
+
+    factorHint:
+    "Buat faktorisasi prima dari 6 dan 8.",
+
+    calculationHint:
+    "Cari KPK dari 6 dan 8.",
+
+    conclusionHint:
+    "Tuliskan setelah berapa hari kegiatan dilakukan bersama lagi."
+  },
+
+
+  {
+    title:"Membuat Kantong Kelereng",
+    emoji:"🔴",
+
+    story:
+    "Tiga toples berisi kelereng dengan jumlah masing-masing " +
+    "30, 45, dan 60 butir. Semua kelereng akan dimasukkan " +
+    "ke dalam kantong dengan jumlah yang sama banyak. " +
+    "Kelereng dari toples yang berbeda tidak boleh bercampur. " +
+    "Berapakah jumlah kelereng paling banyak yang dapat dibuat dalam setiap kantong?",
+
+    numbers:[30,45,60],
+
+    answer:15,
+
+    type:"fpb",
+
+    keywordHint:
+    "Kata kunci: jumlah sama banyak dan paling banyak.",
+
+    factorHint:
+    "Buat faktorisasi prima dari 30, 45, dan 60.",
+
+    calculationHint:
+    "Cari FPB dari ketiga bilangan.",
+
+    conclusionHint:
+    "Tuliskan jumlah kelereng paling banyak dalam setiap kantong."
+  },
+
+
+  {
+    title:"Dua Kran Air",
+    emoji:"🚰",
+
+    story:
+    "Dua kran air mengisi dua bak berbeda. " +
+    "Kran A dapat mengisi penuh bak dalam 15 menit, " +
+    "sedangkan kran B dapat mengisi penuh bak dalam 20 menit. " +
+    "Jika kedua kran dibuka bersamaan pada pukul 08.00, " +
+    "pada pukul berapa keduanya akan selesai mengisi penuh bak secara bersamaan lagi?",
+
+    numbers:[15,20],
+
+    answer:60,
+
+    type:"kpk",
+
+    keywordHint:
+    "Kata kunci: selesai bersama dan kejadian berulang.",
+
+    factorHint:
+    "Buat faktorisasi prima dari 15 dan 20.",
+
+    calculationHint:
+    "Cari KPK dari 15 dan 20.",
+
+    conclusionHint:
+    "Tuliskan pukul berapa kedua kran selesai bersamaan."
+  },
+
+
+  {
+    title:"Upacara dan Pembinaan",
+    emoji:"🏫",
+
+    story:
+    "Upacara bendera di sekolah dilakukan setiap 12 hari sekali. " +
+    "Kegiatan pembinaan karakter dilakukan setiap 18 hari sekali. " +
+    "Jika hari ini keduanya dilaksanakan bersama-sama, " +
+    "pada hari ke berapa kedua kegiatan tersebut akan dilaksanakan bersamaan untuk ketiga kalinya?",
+
+    numbers:[12,18],
+
+    answer:36,
+
+    type:"kpk",
+
+    keywordHint:
+    "Kata kunci: kegiatan berulang dan bersamaan kembali.",
+
+    factorHint:
+    "Buat faktorisasi prima dari 12 dan 18.",
+
+    calculationHint:
+    "Cari KPK dari 12 dan 18.",
+
+    conclusionHint:
+    "Tuliskan kapan kedua kegiatan berlangsung bersama."
+  }
 
 ];
 
 
-let currentEvent = 0;
+/* =====================================================
+   STATE
+===================================================== */
 
-let paused = false;
+let state = {
 
-let running = false;
+  studentName:"",
 
+  stars:0,
 
-const busA =
-document.getElementById("busA");
+  lives:3,
 
-const busB =
-document.getElementById("busB");
+  completed:0,
 
-const clock =
-document.getElementById("clock");
+  caseIndex:0,
 
-const message =
-document.getElementById("message");
+  step:0,
 
-const answer =
-document.getElementById("answer");
+  answered:false,
 
+  knownText:"",
 
-/* =========================
-   MENJALANKAN ANIMASI
-========================= */
+  keyword:null,
 
-function startAnimation() {
+  factorText:"",
 
-if(running) return;
+  conclusionText:""
 
-running = true;
-
-paused = false;
-
-currentEvent = 0;
-
-runNextEvent();
-
-}
+};
 
 
-/* =========================
-   EVENT BERIKUTNYA
-========================= */
-
-function runNextEvent() {
-
-if(paused) {
-
-running = false;
-
-return;
-
-}
+const DB_KEY =
+"kpkFpbStudents_v1";
 
 
-if(currentEvent >= events.length) {
+/* =====================================================
+   DATABASE
+===================================================== */
 
-running = false;
+function getDB(){
 
-return;
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(DB_KEY)
+    ) || {};
+
+  }
+
+  catch(e){
+
+    return {};
+
+  }
 
 }
 
 
-let event = events[currentEvent];
+function saveDB(db){
 
-
-/* Update Jam */
-
-clock.innerHTML =
-"⏰ Pukul " + event.time;
-
-
-/* Timeline */
-
-document
-.querySelectorAll(".timeline-item")
-.forEach(item => {
-
-item.classList.remove("active");
-
-});
-
-
-let timeline =
-document.getElementById(
-"t" + event.minute
-);
-
-if(timeline) {
-
-timeline.classList.add("active");
+  localStorage.setItem(
+    DB_KEY,
+    JSON.stringify(db)
+  );
 
 }
 
 
-/* =========================
-   SEMBUNYIKAN BUS
-========================= */
+function normalizeName(name){
 
-busA.style.display = "none";
-
-busB.style.display = "none";
-
-
-/* =========================
-   BUS A BERANGKAT
-========================= */
-
-if(event.busA) {
-
-message.innerHTML =
-"🚌 Bus A berangkat pada pukul " +
-event.time;
-
-moveBus(busA);
+  return name
+    .trim()
+    .replace(/\s+/g," ");
 
 }
 
 
-/* =========================
-   BUS B BERANGKAT
-========================= */
+function studentKey(name){
 
-if(event.busB) {
-
-setTimeout(() => {
-
-busB.style.display = "block";
-
-message.innerHTML +=
-" &nbsp;&nbsp; 🚌 Bus B berangkat!";
-
-moveBus(busB);
-
-}, 300);
+  return normalizeName(name)
+    .toLowerCase();
 
 }
 
 
-/* =========================
-   KEDUA BUS BERSAMA
-========================= */
+function saveStudent(){
 
-if(event.busA && event.busB) {
-
-message.innerHTML =
-"🎉 Bus A dan Bus B berangkat bersama!";
-
-}
+  if(!state.studentName) return;
 
 
-/* =========================
-   JIKA SUDAH 07.00
-========================= */
-
-if(event.minute === 60) {
-
-setTimeout(() => {
-
-answer.style.display = "block";
-
-message.innerHTML =
-"🎉 HORE! KEDUA BUS BERTEMU WAKTUNYA!";
-
-}, 2500);
-
-}
+  const db = getDB();
 
 
-/* EVENT BERIKUTNYA */
+  const key =
+  studentKey(state.studentName);
 
-currentEvent++;
+
+  db[key] = {
+
+    name:state.studentName,
+
+    stars:state.stars,
+
+    lives:state.lives,
+
+    completed:state.completed,
+
+    caseIndex:state.caseIndex,
+
+    step:state.step,
+
+    score:calculateScore(state),
+
+    updatedAt:new Date().toISOString()
+
+  };
 
 
-setTimeout(() => {
-
-runNextEvent();
-
-}, 3500);
+  saveDB(db);
 
 }
 
 
-/* =========================
-   ANIMASI BUS
-========================= */
+function loadStudent(name){
 
-function moveBus(bus) {
+  const db = getDB();
 
-
-bus.style.display = "block";
+  const record =
+  db[studentKey(name)];
 
 
-let position = 200;
+  state = {
+
+    studentName:name,
+
+    stars:
+    record?.stars ?? 0,
+
+    lives:
+    record?.lives ?? 3,
+
+    completed:
+    record?.completed ?? 0,
+
+    caseIndex:
+    Math.min(
+      record?.caseIndex ?? 0,
+      cases.length - 1
+    ),
+
+    step:
+    record?.step ?? 0,
+
+    answered:false,
+
+    knownText:"",
+
+    keyword:null,
+
+    factorText:"",
+
+    conclusionText:""
+
+  };
 
 
-bus.style.left =
-position + "px";
-
-
-let animation =
-setInterval(() => {
-
-
-position += 8;
-
-
-bus.style.left =
-position + "px";
-
-
-if(position > 1000) {
-
-
-clearInterval(animation);
-
-
-bus.style.display =
-"none";
-
-
-}
-
-
-}, 30);
-
-}
-
-
-/* =========================
-   PAUSE
-========================= */
-
-function pauseAnimation() {
-
-paused = true;
-
-running = false;
-
-message.innerHTML =
-"⏸ Animasi dijeda";
+  saveStudent();
 
 }
 
 
-/* =========================
-   RESET
-========================= */
+function calculateScore(s){
 
-function resetAnimation() {
-
-
-paused = true;
-
-running = false;
-
-currentEvent = 0;
-
-
-busA.style.display =
-"none";
-
-busB.style.display =
-"none";
-
-
-clock.innerHTML =
-"⏰ Pukul 06.00";
-
-
-message.innerHTML =
-"Klik tombol mulai untuk melihat animasi!";
-
-
-answer.style.display =
-"none";
-
-
-document
-.querySelectorAll(".timeline-item")
-.forEach(item => {
-
-item.classList.remove("active");
-
-});
+  return Math.round(
+    (s.completed / cases.length) * 100
+  );
 
 }
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function go(id){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
+      screen.classList.remove("active");
+
+    });
+
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+
+  if(id === "map"){
+
+    renderMap();
+
+  }
+
+
+  if(id === "game"){
+
+    renderGame();
+
+  }
+
+
+  if(id === "teacher"){
+
+    refreshDashboard();
+
+  }
+
+
+  updateStats();
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
+function startMission(){
+
+  document
+    .getElementById("studentNameInput")
+    .value =
+    state.studentName || "";
+
+
+  go("profile");
+
+}
+
+
+function enterStudent(){
+
+  const input =
+  document.getElementById(
+    "studentNameInput"
+  );
+
+
+  const name =
+  normalizeName(input.value);
+
+
+  if(name.length < 2){
+
+    document
+      .getElementById("profileNotice")
+      .textContent =
+      "Masukkan nama minimal 2 karakter.";
+
+    return;
+
+  }
+
+
+  loadStudent(name);
+
+
+  go("map");
+
+
+  toast(
+    `Selamat datang, ${name}! 🌱`
+  );
+
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+function statsHTML(){
+
+  return `
+
+    <div class="stat">
+      👤 ${state.studentName || "Siswa"}
+    </div>
+
+    <div class="stat">
+      ⭐ ${state.stars}
+    </div>
+
+    <div class="stat">
+      ❤️ ${state.lives}
+    </div>
+
+    <div class="stat">
+      📚 ${state.completed}/${cases.length}
+    </div>
+
+    <div class="stat">
+      🏆 ${calculateScore(state)}
+    </div>
+
+  `;
+
+}
+
+
+function updateStats(){
+
+  [
+    "homeStats",
+    "mapStats",
+    "gameStats"
+  ]
+  .forEach(id => {
+
+    const el =
+    document.getElementById(id);
+
+
+    if(el){
+
+      el.innerHTML =
+      statsHTML();
+
+    }
+
+  });
+
+}
+
+
+/* =====================================================
+   MAP
+===================================================== */
+
+function renderMap(){
+
+  const grid =
+  document.getElementById(
+    "mapGrid"
+  );
+
+
+  const subtitle =
+  document.getElementById(
+    "mapSubtitle"
+  );
+
+
+  if(!state.studentName){
+
+    subtitle.textContent =
+    "Masukkan nama terlebih dahulu untuk mulai mengerjakan.";
+
+  }
+
+  else{
+
+    subtitle.innerHTML =
+
+    `Halo <b>${state.studentName}</b>!
+    Selesaikan soal secara berurutan.
+    Progress: <b>${calculateScore(state)}%</b>`;
+
+  }
+
+
+  grid.innerHTML = "";
+
+
+  cases.forEach(
+    (c,i) => {
+
+      const unlocked =
+      i === 0 ||
+      state.completed >= i;
+
+
+      const done =
+      state.completed > i;
+
+
+      const el =
+      document.createElement("button");
+
+
+      el.className =
+      "case-card " +
+      (!unlocked ? "locked" : "");
+
+
+      el.innerHTML = `
+
+        <div class="case-no">
+          SOAL ${i+1}
+        </div>
+
+
+        <div class="lock">
+
+          ${
+            done
+            ? "✅"
+            : unlocked
+            ? "📝"
+            : "🔒"
+          }
+
+        </div>
+
+
+        <div style="font-size:42px">
+
+          ${c.emoji}
+
+        </div>
+
+
+        <h3>
+
+          ${c.title}
+
+        </h3>
+
+
+        <p>
+
+          ${
+            done
+            ? "Soal telah selesai."
+            : unlocked
+            ? "Klik untuk mengerjakan."
+            : "Selesaikan soal sebelumnya."
+          }
+
+        </p>
+
+      `;
+
+
+      if(unlocked){
+
+        el.onclick =
+        () => {
+
+          state.caseIndex = i;
+
+          state.step = 0;
+
+          state.answered = false;
+
+          state.knownText = "";
+
+          state.keyword = null;
+
+          state.factorText = "";
+
+          state.conclusionText = "";
+
+
+          saveStudent();
+
+
+          go("game");
+
+        };
+
+      }
+
+
+      grid.appendChild(el);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   GAME RENDER
+===================================================== */
+
+function renderGame(){
+
+  if(!state.studentName){
+
+    go("profile");
+
+    return;
+
+  }
+
+
+  const c =
+  cases[state.caseIndex];
+
+
+  document
+    .getElementById("studentBadge")
+    .textContent =
+    `— ${state.studentName}`;
+
+
+  document
+    .getElementById("caseLabel")
+    .textContent =
+    `SOAL ${state.caseIndex+1}`;
+
+
+  document
+    .getElementById("progressBar")
+    .style.width =
+    ((state.step + 1) / 5 * 100) + "%";
+
+
+  document
+    .getElementById("caseHeader")
+    .innerHTML = `
+
+      <div class="case-emoji">
+
+        ${c.emoji}
+
+      </div>
+
+
+      <div>
+
+        <h2>
+
+          ${c.title}
+
+        </h2>
+
+
+        <p>
+
+          ${c.story}
+
+        </p>
+
+      </div>
+
+    `;
+
+
+  const card =
+  document.getElementById(
+    "stepCard"
+  );
+
+
+  if(state.step === 0){
+
+    renderKnown(card,c);
+
+  }
+
+
+  if(state.step === 1){
+
+    renderKeyword(card,c);
+
+  }
+
+
+  if(state.step === 2){
+
+    renderFactor(card,c);
+
+  }
+
+
+  if(state.step === 3){
+
+    renderCalculation(card,c);
+
+  }
+
+
+  if(state.step === 4){
+
+    renderConclusion(card,c);
+
+  }
+
+
+  updateStats();
+
+}
+
+
+/* =====================================================
+   NAV BUTTONS
+===================================================== */
+
+function navButtons(){
+
+  return `
+
+    <div class="step-actions">
+
+      <button
+        class="btn btn-secondary"
+        onclick="prevStep()">
+
+        ← Kembali
+
+      </button>
+
+
+      <div class="right">
+
+        <button
+          class="btn btn-primary"
+          onclick="nextStep()">
+
+          Lanjut →
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   STEP 1
+   DIKETAHUI DAN DITANYAKAN
+===================================================== */
+
+function renderKnown(el,c){
+
+  el.innerHTML = `
+
+    <span class="step-kicker">
+
+      LANGKAH 1
+
+    </span>
+
+
+    <h2>
+
+      📝 Diketahui dan Ditanyakan
+
+    </h2>
+
+
+    <p class="question">
+
+      Bacalah soal dengan teliti.
+      Kemudian tuliskan informasi
+      yang diketahui dan yang ditanyakan.
+
+    </p>
+
+
+    <div class="work-box">
+
+      <h3>
+        💡 Petunjuk
+      </h3>
+
+      <p>
+
+        Gunakan format seperti:
+
+      </p>
+
+
+      <p>
+
+        <b>Diketahui:</b><br>
+        ...<br><br>
+
+        <b>Ditanyakan:</b><br>
+        ...
+
+      </p>
+
+    </div>
+
+
+    <textarea
+      id="knownInput"
+      class="answer-area"
+      placeholder="Tuliskan Diketahui dan Ditanyakan di sini...">${state.knownText}</textarea>
+
+
+    ${navButtons()}
+
+  `;
+
+}
+
+
+/* =====================================================
+   STEP 2
+   KATA KUNCI
+===================================================== */
+
+function renderKeyword(el,c){
+
+  el.innerHTML = `
+
+    <span class="step-kicker">
+
+      LANGKAH 2
+
+    </span>
+
+
+    <h2>
+
+      🔎 Identifikasi KPK atau FPB
+
+    </h2>
+
+
+    <p class="question">
+
+      Tentukan konsep yang tepat
+      untuk menyelesaikan soal ini.
+
+    </p>
+
+
+    <div class="work-box">
+
+      <h3>
+        💡 Petunjuk Kata Kunci
+      </h3>
+
+      <p>
+
+        ${c.keywordHint}
+
+      </p>
+
+    </div>
+
+
+    <div class="keyword-buttons">
+
+
+      <button
+        class="keyword-button kpk ${
+          state.keyword === "kpk"
+          ? "selected"
+          : ""
+        }"
+        onclick="selectKeyword('kpk')">
+
+        🔁 KPK
+
+      </button>
+
+
+      <button
+        class="keyword-button fpb ${
+          state.keyword === "fpb"
+          ? "selected"
+          : ""
+        }"
+        onclick="selectKeyword('fpb')">
+
+        🧱 FPB
+
+      </button>
+
+
+    </div>
+
+
+    <div
+      id="keywordFeedback"
+      class="feedback">
+
+    </div>
+
+
+    ${navButtons()}
+
+  `;
+
+
+  if(state.keyword !== null){
+
+    const fb =
+    document.getElementById(
+      "keywordFeedback"
+    );
+
+
+    const correct =
+    state.keyword === c.type;
+
+
+    fb.className =
+    "feedback show " +
+    (correct ? "good" : "bad");
+
+
+    fb.innerHTML =
+    correct
+    ? "✅ Tepat! Kamu telah memilih konsep yang sesuai."
+    : "❌ Belum tepat. Perhatikan kembali kata kunci dalam soal.";
+
+  }
+
+}
+
+
+/* =====================================================
+   STEP 3
+   FAKTORISASI
+===================================================== */
+
+function renderFactor(el,c){
+
+  const numberText =
+  c.numbers.join(", ");
+
+
+  el.innerHTML = `
+
+    <span class="step-kicker">
+
+      LANGKAH 3
+
+    </span>
+
+
+    <h2>
+
+      🌳 Pohon Faktor / Faktorisasi Prima
+
+    </h2>
+
+
+    <p class="question">
+
+      Buat pohon faktor atau tuliskan
+      faktorisasi prima dari bilangan:
+
+      <b>${numberText}</b>
+
+    </p>
+
+
+    <div class="work-box">
+
+      <h3>
+        💡 Petunjuk
+      </h3>
+
+      <p>
+
+        ${c.factorHint}
+
+      </p>
+
+
+      <p>
+
+        Contoh penulisan:
+
+        <br><br>
+
+        12 = 2² × 3
+
+      </p>
+
+    </div>
+
+
+    <textarea
+      id="factorInput"
+      class="answer-area"
+      placeholder="Tuliskan pohon faktor atau faktorisasi prima di sini...">${state.factorText}</textarea>
+
+
+    ${navButtons()}
+
+  `;
+
+}
+
+
+/* =====================================================
+   STEP 4
+   MENGHITUNG
+===================================================== */
+
+function renderCalculation(el,c){
+
+  el.innerHTML = `
+
+    <span class="step-kicker">
+
+      LANGKAH 4
+
+    </span>
+
+
+    <h2>
+
+      🧮 Menghitung Nilai KPK / FPB
+
+    </h2>
+
+
+    <p class="question">
+
+      Sekarang hitung nilai
+      <b>${c.type.toUpperCase()}</b>
+      dari bilangan:
+
+      <b>${c.numbers.join(", ")}</b>
+
+    </p>
+
+
+    <div class="work-box">
+
+      <h3>
+        💡 Petunjuk
+      </h3>
+
+      <p>
+
+        ${c.calculationHint}
+
+      </p>
+
+    </div>
+
+
+    <div class="grow-box">
+
+      <h3>
+        Langkah Perhitungan
+      </h3>
+
+      <p>
+
+        Kerjakan perhitunganmu
+        terlebih dahulu di buku atau kertas,
+        kemudian masukkan hasil akhirnya.
+
+      </p>
+
+    </div>
+
+
+    <div style="margin-top:25px">
+
+      <input
+        id="answerInput"
+        class="input-answer"
+        type="number"
+        inputmode="numeric"
+        placeholder="?">
+
+
+      <button
+        class="btn btn-primary"
+        onclick="checkAnswer()">
+
+        Check Jawaban
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="solveFeedback"
+      class="feedback">
+
+    </div>
+
+
+    <div class="step-actions">
+
+      <button
+        class="btn btn-secondary"
+        onclick="prevStep()">
+
+        ← Kembali
+
+      </button>
+
+
+      <div class="right">
+
+        <button
+          id="solveNext"
+          class="btn btn-primary"
+          onclick="nextStep()"
+          disabled>
+
+          Lanjut →
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   STEP 5
+   KESIMPULAN
+===================================================== */
+
+function renderConclusion(el,c){
+
+  el.innerHTML = `
+
+    <span class="step-kicker">
+
+      LANGKAH 5
+
+    </span>
+
+
+    <h2>
+
+      ✍️ Menuliskan Kesimpulan
+
+    </h2>
+
+
+    <p class="question">
+
+      Tuliskan kesimpulan sesuai
+      dengan konteks pertanyaan.
+
+    </p>
+
+
+    <div class="work-box">
+
+      <h3>
+        💡 Petunjuk
+      </h3>
+
+      <p>
+
+        ${c.conclusionHint}
+
+      </p>
+
+
+      <p>
+
+        Gunakan kalimat lengkap.
+
+      </p>
+
+    </div>
+
+
+    <textarea
+      id="conclusionInput"
+      class="answer-area"
+      placeholder="Tuliskan kesimpulan jawaban di sini...">${state.conclusionText}</textarea>
+
+
+    <div class="feedback show good">
+
+      🎉 Kamu telah menyelesaikan
+      seluruh langkah pengerjaan soal!
+
+    </div>
+
+
+    <div class="step-actions">
+
+      <button
+        class="btn btn-secondary"
+        onclick="prevStep()">
+
+        ← Kembali
+
+      </button>
+
+
+      <div class="right">
+
+        <button
+          class="btn btn-primary"
+          onclick="finishCase()">
+
+          ${
+            state.caseIndex === cases.length - 1
+            ? "🏆 Selesaikan Semua"
+            : "🔓 Soal Berikutnya →"
+          }
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   SAVE WRITTEN WORK
+===================================================== */
+
+function saveWrittenWork(){
+
+  const known =
+  document.getElementById(
+    "knownInput"
+  );
+
+
+  if(known){
+
+    state.knownText =
+    known.value;
+
+  }
+
+
+  const factor =
+  document.getElementById(
+    "factorInput"
+  );
+
+
+  if(factor){
+
+    state.factorText =
+    factor.value;
+
+  }
+
+
+  const conclusion =
+  document.getElementById(
+    "conclusionInput"
+  );
+
+
+  if(conclusion){
+
+    state.conclusionText =
+    conclusion.value;
+
+  }
+
+}
+
+
+/* =====================================================
+   SELECT KEYWORD
+===================================================== */
+
+function selectKeyword(type){
+
+  state.keyword = type;
+
+
+  saveStudent();
+
+
+  renderGame();
+
+}
+
+
+/* =====================================================
+   CHECK ANSWER
+===================================================== */
+
+function checkAnswer(){
+
+  const c =
+  cases[state.caseIndex];
+
+
+  const input =
+  document.getElementById(
+    "answerInput"
+  );
+
+
+  const fb =
+  document.getElementById(
+    "solveFeedback"
+  );
+
+
+  const next =
+  document.getElementById(
+    "solveNext"
+  );
+
+
+  const val =
+  Number(input.value);
+
+
+  if(!input.value){
+
+    fb.className =
+    "feedback show bad";
+
+
+    fb.innerHTML =
+    "Masukkan jawaban terlebih dahulu.";
+
+    return;
+
+  }
+
+
+  if(val === c.answer){
+
+    if(!state.answered){
+
+      state.stars++;
+
+      state.answered = true;
+
+
+      saveStudent();
+
+
+      confetti();
+
+    }
+
+
+    fb.className =
+    "feedback show good";
+
+
+    fb.innerHTML =
+
+    "⭐ <b>Benar!</b> Jawabanmu tepat. " +
+    "Sekarang lanjutkan ke langkah kesimpulan.";
+
+
+    next.disabled = false;
+
+  }
+
+
+  else{
+
+    state.lives =
+    Math.max(
+      0,
+      state.lives - 1
+    );
+
+
+    saveStudent();
+
+
+    fb.className =
+    "feedback show bad";
+
+
+    fb.innerHTML =
+
+    "🌱 <b>Belum tepat.</b> " +
+    "Periksa kembali faktorisasi dan perhitunganmu. " +
+    "Coba lagi.";
+
+  }
+
+
+  updateStats();
+
+}
+
+
+/* =====================================================
+   NEXT STEP
+===================================================== */
+
+function nextStep(){
+
+  saveWrittenWork();
+
+
+  const c =
+  cases[state.caseIndex];
+
+
+  if(
+    state.step === 0 &&
+    !state.knownText.trim()
+  ){
+
+    flash(
+      "Tuliskan Diketahui dan Ditanyakan terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    state.step === 1 &&
+    state.keyword !== c.type
+  ){
+
+    flash(
+      "Pilih KPK atau FPB yang tepat terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    state.step === 2 &&
+    !state.factorText.trim()
+  ){
+
+    flash(
+      "Tuliskan pohon faktor atau faktorisasi prima terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    state.step === 3 &&
+    !state.answered
+  ){
+
+    flash(
+      "Selesaikan perhitungan dan periksa jawaban terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(state.step < 4){
+
+    state.step++;
+
+
+    saveStudent();
+
+
+    renderGame();
+
+  }
+
+}
+
+
+/* =====================================================
+   PREVIOUS STEP
+===================================================== */
+
+function prevStep(){
+
+  saveWrittenWork();
+
+
+  if(state.step > 0){
+
+    state.step--;
+
+
+    renderGame();
+
+  }
+
+
+  else{
+
+    go("map");
+
+  }
+
+}
+
+
+/* =====================================================
+   FINISH CASE
+===================================================== */
+
+function finishCase(){
+
+  saveWrittenWork();
+
+
+  if(
+    !state.conclusionText.trim()
+  ){
+
+    flash(
+      "Tuliskan kesimpulan jawaban terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    state.completed <= state.caseIndex
+  ){
+
+    state.completed =
+    state.caseIndex + 1;
+
+  }
+
+
+  saveStudent();
+
+
+  if(
+    state.caseIndex ===
+    cases.length - 1
+  ){
+
+    document
+      .getElementById("finalStars")
+      .textContent =
+      "⭐".repeat(
+        Math.min(
+          state.stars,
+          cases.length
+        )
+      );
+
+
+    document
+      .querySelector(
+        "#finalScoreCircle strong"
+      )
+      .textContent =
+      calculateScore(state);
+
+
+    document
+      .getElementById("finalText")
+      .innerHTML = `
+
+        <b>${state.studentName}</b>,
+        kamu telah menyelesaikan
+        <b>${cases.length} soal</b>.
+
+        <br><br>
+
+        Kamu berhasil belajar dengan langkah:
+
+        <br><br>
+
+        <b>
+
+          Diketahui & Ditanyakan
+          → KPK/FPB
+          → Faktorisasi Prima
+          → Menghitung
+          → Kesimpulan
+
+        </b>
+
+      `;
+
+
+    go("complete");
+
+  }
+
+
+  else{
+
+    state.caseIndex++;
+
+    state.step = 0;
+
+    state.answered = false;
+
+    state.knownText = "";
+
+    state.keyword = null;
+
+    state.factorText = "";
+
+    state.conclusionText = "";
+
+
+    saveStudent();
+
+
+    go("game");
+
+  }
+
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartCurrentStudent(){
+
+  if(!state.studentName){
+
+    go("profile");
+
+    return;
+
+  }
+
+
+  const name =
+  state.studentName;
+
+
+  state = {
+
+    studentName:name,
+
+    stars:0,
+
+    lives:3,
+
+    completed:0,
+
+    caseIndex:0,
+
+    step:0,
+
+    answered:false,
+
+    knownText:"",
+
+    keyword:null,
+
+    factorText:"",
+
+    conclusionText:""
+
+  };
+
+
+  saveStudent();
+
+
+  go("map");
+
+
+  toast(
+    "Progress telah direset. Semangat belajar lagi! 🌱"
+  );
+
+}
+
+
+/* =====================================================
+   MATHEMATICAL FUNCTIONS
+===================================================== */
+
+function factors(n){
+
+  const result = [];
+
+
+  for(
+    let i = 1;
+    i <= n;
+    i++
+  ){
+
+    if(n % i === 0){
+
+      result.push(i);
+
+    }
+
+  }
+
+
+  return result;
+
+}
+
+
+function multiples(
+  n,
+  count = 10
+){
+
+  return Array.from(
+
+    {
+      length:count
+    },
+
+    (_,i) =>
+    n * (i + 1)
+
+  );
+
+}
+
+
+function gcd(a,b){
+
+  while(b){
+
+    [a,b] =
+    [b,a % b];
+
+  }
+
+
+  return a;
+
+}
+
+
+function lcm(a,b){
+
+  return Math.abs(
+    a * b
+  ) / gcd(a,b);
+
+}
+
+
+/* =====================================================
+   LAB
+===================================================== */
+
+function runLab(){
+
+  const a =
+  Number(
+    document.getElementById(
+      "labA"
+    ).value
+  );
+
+
+  const b =
+  Number(
+    document.getElementById(
+      "labB"
+    ).value
+  );
+
+
+  const r =
+  document.getElementById(
+    "labResult"
+  );
+
+
+  if(a < 1 || b < 1){
+
+    r.innerHTML =
+    "Masukkan bilangan positif.";
+
+    return;
+
+  }
+
+
+  r.innerHTML = `
+
+    <h3>
+      🔍 Hasil Perhitungan
+    </h3>
+
+
+    <p>
+
+      <b>Faktor ${a}:</b>
+
+      ${factors(a).join(", ")}
+
+    </p>
+
+
+    <p>
+
+      <b>Faktor ${b}:</b>
+
+      ${factors(b).join(", ")}
+
+    </p>
+
+
+    <p>
+
+      <b>Kelipatan ${a}:</b>
+
+      ${multiples(a).join(", ")}
+
+    </p>
+
+
+    <p>
+
+      <b>Kelipatan ${b}:</b>
+
+      ${multiples(b).join(", ")}
+
+    </p>
+
+
+    <hr>
+
+
+    <h3>
+
+      🧱 FPB = ${gcd(a,b)}
+
+    </h3>
+
+
+    <h3>
+
+      🔁 KPK = ${lcm(a,b)}
+
+    </h3>
+
+  `;
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function refreshDashboard(){
+
+  const db =
+  getDB();
+
+
+  const students =
+  Object.values(db)
+  .sort(
+    (a,b) =>
+    new Date(b.updatedAt) -
+    new Date(a.updatedAt)
+  );
+
+
+  const total =
+  students.length;
+
+
+  const complete =
+  students.filter(
+    s =>
+    s.completed >=
+    cases.length
+  ).length;
+
+
+  const average =
+  total
+  ? Math.round(
+
+      students.reduce(
+        (sum,s) =>
+        sum + (s.score || 0),
+        0
+      ) / total
+
+    )
+  : 0;
+
+
+  document
+    .getElementById(
+      "dashboardMetrics"
+    )
+    .innerHTML = `
+
+      <div class="metric">
+
+        <small>
+          Total Siswa
+        </small>
+
+        <div class="num">
+
+          ${total}
+
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <small>
+          Rata-rata Skor
+        </small>
+
+        <div class="num">
+
+          ${average}
+
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <small>
+          Mission Selesai
+        </small>
+
+        <div class="num">
+
+          ${complete}
+
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <small>
+          Total Soal
+        </small>
+
+        <div class="num">
+
+          ${cases.length}
+
+        </div>
+
+      </div>
+
+    `;
+
+
+  const body =
+  document.getElementById(
+    "studentTableBody"
+  );
+
+
+  if(!students.length){
+
+    body.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="6"
+          class="empty">
+
+          Belum ada data siswa.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  body.innerHTML =
+  students.map(s => {
+
+
+    const progress =
+    Math.min(
+
+      100,
+
+      Math.round(
+        (
+          s.completed /
+          cases.length
+        ) * 100
+      )
+
+    );
+
+
+    const date =
+    s.updatedAt
+    ? new Date(
+        s.updatedAt
+      ).toLocaleString("id-ID")
+    : "-";
+
+
+    return `
+
+      <tr>
+
+        <td>
+
+          <b>
+
+            ${escapeHTML(s.name)}
+
+          </b>
+
+        </td>
+
+
+        <td>
+
+          <b>
+
+            ${s.score || 0}/100
+
+          </b>
+
+        </td>
+
+
+        <td>
+
+          ${s.stars || 0} ⭐
+
+        </td>
+
+
+        <td>
+
+          ${s.completed || 0}/${cases.length}
+
+        </td>
+
+
+        <td>
+
+          <div class="progress-mini">
+
+            <span
+              style="width:${progress}%">
+
+            </span>
+
+          </div>
+
+
+          <small>
+
+            ${progress}%
+
+          </small>
+
+        </td>
+
+
+        <td>
+
+          ${date}
+
+        </td>
+
+      </tr>
+
+    `;
+
+  })
+  .join("");
+
+}
+
+
+/* =====================================================
+   EXPORT CSV
+===================================================== */
+
+function exportCSV(){
+
+  const db =
+  getDB();
+
+
+  const students =
+  Object.values(db);
+
+
+  if(!students.length){
+
+    toast(
+      "Belum ada data untuk diekspor."
+    );
+
+    return;
+
+  }
+
+
+  const rows = [
+
+    [
+
+      "Nama Siswa",
+
+      "Skor",
+
+      "Bintang",
+
+      "Soal Selesai",
+
+      "Progress (%)",
+
+      "Terakhir Aktif"
+
+    ]
+
+  ];
+
+
+  students.forEach(s => {
+
+    rows.push([
+
+      s.name,
+
+      s.score || 0,
+
+      s.stars || 0,
+
+      s.completed || 0,
+
+      Math.round(
+        (
+          (s.completed || 0) /
+          cases.length
+        ) * 100
+      ),
+
+      s.updatedAt
+      ? new Date(
+          s.updatedAt
+        ).toLocaleString("id-ID")
+      : ""
+
+    ]);
+
+  });
+
+
+  const csv =
+  rows
+  .map(
+    row =>
+    row
+    .map(csvCell)
+    .join(",")
+  )
+  .join("\n");
+
+
+  const blob =
+  new Blob(
+
+    ["\ufeff" + csv],
+
+    {
+      type:"text/csv;charset=utf-8;"
+    }
+
+  );
+
+
+  const url =
+  URL.createObjectURL(blob);
+
+
+  const a =
+  document.createElement("a");
+
+
+  a.href = url;
+
+
+  a.download =
+  "Progress_KPK_FPB.csv";
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function csvCell(value){
+
+  return `"${String(value ?? "")
+    .replace(/"/g,'""')}"`;
+
+}
+
+
+/* =====================================================
+   CLEAR DATA
+===================================================== */
+
+function clearAllStudentData(){
+
+  const ok =
+  confirm(
+    "Apakah Anda yakin ingin menghapus semua data siswa?"
+  );
+
+
+  if(!ok) return;
+
+
+  localStorage.removeItem(
+    DB_KEY
+  );
+
+
+  refreshDashboard();
+
+
+  toast(
+    "Semua data siswa telah dihapus."
+  );
+
+}
+
+
+/* =====================================================
+   UTILITIES
+===================================================== */
+
+function escapeHTML(text){
+
+  return String(text)
+  .replace(
+    /[&<>"']/g,
+    m => ({
+
+      "&":"&amp;",
+
+      "<":"&lt;",
+
+      ">":"&gt;",
+
+      '"':"&quot;",
+
+      "'":"&#039;"
+
+    }[m])
+  );
+
+}
+
+
+function toast(msg){
+
+  const old =
+  document.querySelector(
+    ".toast"
+  );
+
+
+  if(old){
+
+    old.remove();
+
+  }
+
+
+  const t =
+  document.createElement(
+    "div"
+  );
+
+
+  t.className =
+  "toast";
+
+
+  t.textContent =
+  msg;
+
+
+  document.body
+  .appendChild(t);
+
+
+  setTimeout(
+    () => t.remove(),
+    2500
+  );
+
+}
+
+
+function flash(msg){
+
+  toast(msg);
+
+}
+
+
+function confetti(){
+
+  const icons = [
+
+    "⭐",
+    "🌱",
+    "✨",
+    "🎉",
+    "📚"
+
+  ];
+
+
+  for(
+    let i = 0;
+    i < 25;
+    i++
+  ){
+
+    const x =
+    document.createElement(
+      "div"
+    );
+
+
+    x.className =
+    "confetti";
+
+
+    x.textContent =
+
+    icons[
+      Math.floor(
+        Math.random() *
+        icons.length
+      )
+    ];
+
+
+    x.style.left =
+    Math.random() *
+    100 +
+    "vw";
+
+
+    x.style.animationDelay =
+    Math.random() *
+    .5 +
+    "s";
+
+
+    document.body
+    .appendChild(x);
+
+
+    setTimeout(
+      () => x.remove(),
+      3200
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+updateStats();
 
 </script>
 
 </body>
-
 </html>
