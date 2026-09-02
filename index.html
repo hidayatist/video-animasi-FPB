@@ -4,279 +4,320 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Animasi Dilema Pembagian Makanan - FPB</title>
+<title>Animasi FPB - Pembagian Makanan</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #e8f4ff;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #1d4e89;
+}
+
+.video-box {
+    position: relative;
+    height: 560px;
+    background: linear-gradient(to bottom, #8fd3ff 0%, #dff5ff 55%, #9edc7a 55%, #79c45a 100%);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* AWAN */
+.cloud {
+    position: absolute;
+    background: white;
+    width: 120px;
+    height: 45px;
+    border-radius: 50px;
+    opacity: 0.9;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 55px;
+    height: 55px;
+    left: 20px;
+    top: -25px;
+}
+
+.cloud::after {
+    width: 70px;
+    height: 70px;
+    right: 10px;
+    top: -35px;
+}
+
+.cloud1 {
+    top: 70px;
+    left: -150px;
+    animation: moveCloud 18s linear infinite;
+}
+
+.cloud2 {
+    top: 140px;
+    left: -200px;
+    animation: moveCloud 25s linear infinite;
+}
+
+@keyframes moveCloud {
+    from {
+        transform: translateX(0);
     }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #dff6ff, #fff4d6);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
+    to {
+        transform: translateX(1200px);
+    }
+}
+
+/* MEJA */
+.table {
+    position: absolute;
+    width: 700px;
+    height: 100px;
+    background: #9c6337;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+}
+
+.table::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    background: #754222;
+    bottom: -20px;
+    border-radius: 10px;
+}
+
+/* KARAKTER */
+.character {
+    position: absolute;
+    bottom: 190px;
+    text-align: center;
+}
+
+.character .head {
+    width: 80px;
+    height: 80px;
+    background: #f3c9a9;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+}
+
+.character .head::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    background: #3c2a21;
+    border-radius: 20px 20px 0 0;
+    top: 0;
+    left: 15px;
+}
+
+.character .eye {
+    width: 8px;
+    height: 8px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 38px;
+}
+
+.eye.left {
+    left: 22px;
+}
+
+.eye.right {
+    right: 22px;
+}
+
+.character .body {
+    width: 95px;
+    height: 100px;
+    background: #3b82f6;
+    margin: auto;
+    border-radius: 25px 25px 10px 10px;
+}
+
+.character1 {
+    left: 90px;
+}
+
+.character2 {
+    right: 90px;
+}
+
+.character2 .body {
+    background: #ec4899;
+}
+
+/* MAKANAN */
+.food-area {
+    position: absolute;
+    left: 50%;
+    bottom: 190px;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.food {
+    display: inline-block;
+    margin: 10px;
+    font-size: 45px;
+    animation: bounce 1.5s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
     }
 
-    .container {
-        width: 100%;
-        max-width: 950px;
-        background: white;
-        border-radius: 25px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    to {
+        transform: translateY(-12px);
+    }
+}
+
+/* KOTAK INFORMASI */
+.info-box {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    background: rgba(255,255,255,0.92);
+    padding: 18px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #1f2937;
+    min-height: 85px;
+}
+
+/* DIALOG */
+.dialog {
+    position: absolute;
+    bottom: 300px;
+    width: 220px;
+    padding: 15px;
+    background: white;
+    border-radius: 20px;
+    font-size: 17px;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.dialog1 {
+    left: 40px;
+}
+
+.dialog2 {
+    right: 40px;
+}
+
+/* HASIL FPB */
+.result {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: #fff176;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #7c4a03;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.8s;
+}
+
+.result.show {
+    transform: translateX(-50%) scale(1);
+}
+
+/* TOMBOL */
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    border: none;
+    padding: 14px 25px;
+    margin: 5px;
+    border-radius: 12px;
+    font-size: 17px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.scene-number {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #374151;
+}
+
+@media(max-width: 700px) {
+
+    .video-box {
+        height: 650px;
     }
 
-    header {
-        background: #4caf50;
-        color: white;
-        text-align: center;
-        padding: 20px;
+    .character1 {
+        left: 20px;
     }
 
-    header h1 {
-        margin: 0;
-        font-size: 28px;
+    .character2 {
+        right: 20px;
     }
 
-    header p {
-        margin: 8px 0 0;
+    .table {
+        width: 90%;
     }
 
-    .scene {
-        min-height: 480px;
-        padding: 30px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* KARAKTER */
-    .characters {
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-end;
-        margin-top: 20px;
-    }
-
-    .character {
-        text-align: center;
-        animation: float 2s infinite ease-in-out;
-    }
-
-    .character:nth-child(2) {
-        animation-delay: 0.3s;
-    }
-
-    .character:nth-child(3) {
-        animation-delay: 0.6s;
-    }
-
-    .face {
-        width: 100px;
-        height: 100px;
-        background: #ffd3a5;
-        border-radius: 50%;
-        margin: auto;
-        position: relative;
-        border: 4px solid #333;
-    }
-
-    .eyes {
-        display: flex;
-        justify-content: space-around;
-        padding-top: 35px;
-    }
-
-    .eye {
-        width: 10px;
-        height: 15px;
-        background: #333;
-        border-radius: 50%;
-    }
-
-    .mouth {
-        width: 35px;
-        height: 15px;
-        border-bottom: 4px solid #333;
-        border-radius: 50%;
-        margin: 15px auto;
-    }
-
-    .body {
-        width: 90px;
-        height: 110px;
-        background: #4dabf7;
-        border-radius: 25px 25px 10px 10px;
-        margin: auto;
-    }
-
-    .character:nth-child(2) .body {
-        background: #ff8787;
-    }
-
-    .character:nth-child(3) .body {
-        background: #ffd43b;
-    }
-
-    .name {
-        font-weight: bold;
-        margin-top: 10px;
-        font-size: 18px;
-    }
-
-    /* MAKANAN */
-    .food-area {
-        text-align: center;
-        margin: 20px 0;
-    }
-
-    .foods {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        flex-wrap: wrap;
-    }
-
-    .food-box {
-        background: #fff8e1;
-        border: 3px solid #f0b429;
-        border-radius: 20px;
-        padding: 20px;
-        width: 220px;
-    }
-
-    .food {
-        font-size: 60px;
-        animation: bounce 1.5s infinite;
-    }
-
-    .food-box h3 {
-        margin: 10px 0;
-    }
-
-    /* DIALOG */
     .dialog {
-        background: #f1f8ff;
-        border-left: 8px solid #2196f3;
-        padding: 20px;
-        border-radius: 15px;
-        margin-top: 20px;
-        font-size: 20px;
-        line-height: 1.6;
-        min-height: 100px;
+        width: 160px;
+        font-size: 14px;
     }
 
-    /* SOAL */
-    .problem {
-        display: none;
-        text-align: center;
-        margin-top: 20px;
+    .info-box {
+        font-size: 17px;
     }
-
-    .problem h2 {
-        color: #e8590c;
-    }
-
-    .math-box {
-        background: #fff3bf;
-        padding: 20px;
-        border-radius: 20px;
-        font-size: 22px;
-        margin: 20px auto;
-        max-width: 700px;
-    }
-
-    /* PERHITUNGAN */
-    .calculation {
-        display: none;
-        text-align: center;
-    }
-
-    .number-box {
-        display: inline-block;
-        padding: 15px 25px;
-        margin: 10px;
-        background: #e7f5ff;
-        border-radius: 15px;
-        font-size: 22px;
-        font-weight: bold;
-    }
-
-    .result {
-        display: none;
-        text-align: center;
-        background: #d3f9d8;
-        border-radius: 20px;
-        padding: 25px;
-        margin-top: 20px;
-    }
-
-    .result h2 {
-        color: #2b8a3e;
-    }
-
-    button {
-        display: block;
-        margin: 25px auto 0;
-        background: #ff922b;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        background: #f76707;
-        transform: scale(1.05);
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    @keyframes bounce {
-        0%, 100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    @media (max-width: 600px) {
-        .characters {
-            gap: 10px;
-        }
-
-        .face {
-            width: 70px;
-            height: 70px;
-        }
-
-        .body {
-            width: 65px;
-            height: 80px;
-        }
-
-        header h1 {
-            font-size: 22px;
-        }
-    }
+}
 </style>
 </head>
 
@@ -284,222 +325,299 @@
 
 <div class="container">
 
-<header>
-    <h1>🍕 Dilema Pembagian Makanan</h1>
-    <p>Belajar Faktor Persekutuan Terbesar (FPB) dengan Cerita Animasi</p>
-</header>
+<h1>🎬 Animasi Pembelajaran FPB</h1>
 
-<div class="scene">
+<div class="video-box">
 
-    <div class="characters">
-        
-        <div class="character">
-            <div class="face">
-                <div class="eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="mouth"></div>
-            </div>
-            <div class="body"></div>
-            <div class="name">Andi</div>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <div class="info-box" id="infoBox">
+        Selamat datang! Mari belajar FPB melalui pembagian makanan.
+    </div>
+
+    <div class="result" id="resultBox">
+        🎉 FPB dari 12 dan 18 adalah 6! 🎉
+    </div>
+
+    <!-- KARAKTER 1 -->
+    <div class="character character1">
+
+        <div class="head">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
         </div>
 
-        <div class="character">
-            <div class="face">
-                <div class="eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="mouth"></div>
-            </div>
-            <div class="body"></div>
-            <div class="name">Siti</div>
-        </div>
+        <div class="body"></div>
 
-        <div class="character">
-            <div class="face">
-                <div class="eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="mouth"></div>
-            </div>
-            <div class="body"></div>
-            <div class="name">Budi</div>
+        <div style="font-weight:bold;">
+            Ani
         </div>
 
     </div>
 
+    <!-- KARAKTER 2 -->
+    <div class="character character2">
+
+        <div class="head">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+        </div>
+
+        <div class="body"></div>
+
+        <div style="font-weight:bold;">
+            Budi
+        </div>
+
+    </div>
+
+    <!-- DIALOG -->
+    <div class="dialog dialog1" id="dialog1"></div>
+
+    <div class="dialog dialog2" id="dialog2"></div>
+
+    <!-- MAKANAN -->
     <div class="food-area">
 
-        <div class="foods">
+        <div style="font-weight:bold;font-size:18px;">
+            🍎 12 Apel &nbsp;&nbsp; 🥪 18 Roti
+        </div>
 
-            <div class="food-box">
-                <div class="food">🍕</div>
-                <h3>24 Potong Pizza</h3>
-            </div>
-
-            <div class="food-box">
-                <div class="food">🍰</div>
-                <h3>36 Potong Kue</h3>
-            </div>
-
+        <div>
+            <span class="food">🍎</span>
+            <span class="food">🍎</span>
+            <span class="food">🍎</span>
+            <span class="food">🥪</span>
+            <span class="food">🥪</span>
+            <span class="food">🥪</span>
         </div>
 
     </div>
 
-    <div class="dialog" id="dialog">
-        Andi, Siti, dan Budi ingin membagikan makanan kepada beberapa kelompok.
-        Mereka ingin setiap kelompok mendapatkan jumlah makanan yang sama tanpa ada sisa.
-    </div>
+    <div class="table"></div>
 
-    <button onclick="nextScene()" id="nextButton">
-        Mulai Cerita ▶
+</div>
+
+<div class="controls">
+
+    <button onclick="startAnimation()">
+        ▶ Mulai Animasi
     </button>
 
+    <button onclick="stopAudio()">
+        🔇 Hentikan Audio
+    </button>
 
-    <div class="problem" id="problem">
-
-        <h2>🤔 Dilema Mereka</h2>
-
-        <div class="math-box">
-            Tersedia <b>24 potong pizza</b> dan <b>36 potong kue</b>.<br><br>
-
-            Semua makanan harus dibagikan secara adil.<br>
-
-            <b>Berapa kelompok terbanyak yang dapat dibentuk tanpa ada makanan tersisa?</b>
-        </div>
-
-    </div>
-
-
-    <div class="calculation" id="calculation">
-
-        <h2>🔍 Mari Cari Faktor!</h2>
-
-        <div class="number-box">
-            Faktor 24:<br>
-            1, 2, 3, 4, 6, 8, 12, 24
-        </div>
-
-        <div class="number-box">
-            Faktor 36:<br>
-            1, 2, 3, 4, 6, 9, 12, 18, 36
-        </div>
-
-        <div class="math-box">
-            Faktor yang sama adalah:<br><br>
-            <b>1, 2, 3, 4, 6, 12</b>
-        </div>
-
-    </div>
-
-
-    <div class="result" id="result">
-
-        <h2>🎉 Jawabannya adalah FPB = 12!</h2>
-
-        <p style="font-size:20px;">
-            Kelompok terbanyak yang dapat dibentuk adalah <b>12 kelompok</b>.
-        </p>
-
-        <p style="font-size:20px;">
-            Setiap kelompok mendapatkan:
-        </p>
-
-        <p style="font-size:22px;">
-            🍕 <b>2 potong pizza</b>
-            &nbsp;&nbsp;&nbsp;
-            🍰 <b>3 potong kue</b>
-        </p>
-
-        <h3>
-            Jadi, pembagian makanan dapat dilakukan dengan adil dan tidak ada makanan yang tersisa! 😊
-        </h3>
-
-    </div>
+    <button onclick="nextScene()">
+        ⏭ Lanjutkan
+    </button>
 
 </div>
 
+<div class="scene-number" id="sceneNumber">
+    Adegan: 0
 </div>
 
+</div>
 
 <script>
 
 let scene = 0;
 
+const infoBox = document.getElementById("infoBox");
+const dialog1 = document.getElementById("dialog1");
+const dialog2 = document.getElementById("dialog2");
+const resultBox = document.getElementById("resultBox");
+const sceneNumber = document.getElementById("sceneNumber");
+
+
+function speak(text) {
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(text);
+
+    speech.lang = "id-ID";
+
+    speech.rate = 0.9;
+
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+
+}
+
+
+function stopAudio() {
+
+    window.speechSynthesis.cancel();
+
+}
+
+
+function resetScene() {
+
+    dialog1.style.display = "none";
+
+    dialog2.style.display = "none";
+
+    resultBox.classList.remove("show");
+
+}
+
+
+function startAnimation() {
+
+    scene = 0;
+
+    resetScene();
+
+    nextScene();
+
+}
+
+
 function nextScene() {
 
-    const dialog = document.getElementById("dialog");
-    const problem = document.getElementById("problem");
-    const calculation = document.getElementById("calculation");
-    const result = document.getElementById("result");
-    const button = document.getElementById("nextButton");
-
+    resetScene();
 
     scene++;
 
+    sceneNumber.innerHTML = "Adegan: " + scene;
+
+
+    /* ADEGAN 1 */
 
     if (scene === 1) {
 
-        dialog.innerHTML =
-        "🍕 Andi berkata: <b>“Kita harus membagikan semua makanan secara adil!”</b><br>" +
-        "🍰 Siti menjawab: <b>“Tetapi bagaimana caranya agar tidak ada makanan yang tersisa?”</b>";
+        infoBox.innerHTML =
+        "🍎🥪 Ani dan Budi memiliki makanan untuk dibagikan secara adil.";
 
-        button.innerHTML = "Lihat Dilemanya ▶";
+        speak(
+        "Ani dan Budi memiliki dua belas apel dan delapan belas roti. Mereka ingin membagikan makanan tersebut secara adil."
+        );
 
     }
 
+
+    /* ADEGAN 2 */
 
     else if (scene === 2) {
 
-        problem.style.display = "block";
+        infoBox.innerHTML =
+        "🤔 Dilema: Berapa kelompok terbanyak yang dapat menerima makanan dengan jumlah sama?";
 
-        dialog.innerHTML =
-        "🤔 Mereka harus menentukan jumlah kelompok yang paling banyak agar pizza dan kue dapat dibagikan secara sama rata.";
+        dialog1.style.display = "block";
 
-        button.innerHTML = "Cari Faktor ▶";
+        dialog1.innerHTML =
+        "Kita harus membagikan semua makanan tanpa sisa!";
+
+        dialog2.style.display = "block";
+
+        dialog2.innerHTML =
+        "Tetapi setiap kelompok harus mendapatkan jumlah yang sama!";
+
+        speak(
+        "Mereka menghadapi sebuah dilema. Semua makanan harus habis dibagikan, dan setiap kelompok harus mendapatkan jumlah yang sama."
+        );
 
     }
 
+
+    /* ADEGAN 3 */
 
     else if (scene === 3) {
 
-        calculation.style.display = "block";
+        infoBox.innerHTML =
+        "Mari cari faktor dari 12 dan 18!";
 
-        dialog.innerHTML =
-        "🔍 Untuk menyelesaikan masalah ini, kita mencari faktor dari 24 dan 36.";
+        dialog1.style.display = "block";
 
-        button.innerHTML = "Temukan FPB ▶";
+        dialog1.innerHTML =
+        "Faktor 12: 1, 2, 3, 4, 6, 12";
+
+        dialog2.style.display = "block";
+
+        dialog2.innerHTML =
+        "Faktor 18: 1, 2, 3, 6, 9, 18";
+
+        speak(
+        "Sekarang kita mencari faktor dari dua belas dan delapan belas. Faktor dua belas adalah satu, dua, tiga, empat, enam, dan dua belas. Faktor delapan belas adalah satu, dua, tiga, enam, sembilan, dan delapan belas."
+        );
 
     }
 
+
+    /* ADEGAN 4 */
 
     else if (scene === 4) {
 
-        result.style.display = "block";
+        infoBox.innerHTML =
+        "🔍 Faktor persekutuan: 1, 2, 3, dan 6";
 
-        dialog.innerHTML =
-        "🎉 Faktor persekutuan terbesar dari 24 dan 36 adalah <b>12</b>.";
+        dialog1.style.display = "block";
 
-        button.innerHTML = "Pelajaran Selesai ✓";
+        dialog1.innerHTML =
+        "Faktor yang sama adalah 1, 2, 3, dan 6.";
+
+        dialog2.style.display = "block";
+
+        dialog2.innerHTML =
+        "Yang paling besar adalah 6!";
+
+        speak(
+        "Faktor persekutuan dari dua belas dan delapan belas adalah satu, dua, tiga, dan enam. Faktor persekutuan yang paling besar adalah enam."
+        );
 
     }
 
+
+    /* ADEGAN 5 */
+
+    else if (scene === 5) {
+
+        infoBox.innerHTML =
+        "✨ Jadi, makanan dapat dibagikan kepada 6 kelompok secara adil.";
+
+        resultBox.classList.add("show");
+
+        speak(
+        "Jadi, faktor persekutuan terbesar dari dua belas dan delapan belas adalah enam. Artinya, Ani dan Budi dapat membuat enam kelompok pembagian makanan yang sama."
+        );
+
+    }
+
+
+    /* ADEGAN 6 */
+
+    else if (scene === 6) {
+
+        infoBox.innerHTML =
+        "📚 Kesimpulan: FPB membantu kita membagi benda ke dalam kelompok terbanyak dengan jumlah yang sama.";
+
+        speak(
+        "Kesimpulannya, Faktor Persekutuan Terbesar atau FPB dapat digunakan untuk membagi benda ke dalam kelompok sebanyak mungkin dengan jumlah yang sama dan tanpa sisa."
+        );
+
+    }
+
+
+    /* SELESAI */
 
     else {
 
         scene = 0;
 
-        problem.style.display = "none";
-        calculation.style.display = "none";
-        result.style.display = "none";
+        sceneNumber.innerHTML =
+        "Animasi selesai. Klik Mulai Animasi untuk mengulang.";
 
-        dialog.innerHTML =
-        "Andi, Siti, dan Budi ingin membagikan makanan kepada beberapa kelompok. Mereka ingin setiap kelompok mendapatkan jumlah makanan yang sama tanpa ada sisa.";
+        infoBox.innerHTML =
+        "🎉 Hebat! Kamu sudah belajar FPB melalui pembagian makanan.";
 
-        button.innerHTML = "Mulai Lagi ▶";
+        speak(
+        "Hebat! Kamu sudah belajar menggunakan FPB untuk menyelesaikan masalah pembagian makanan."
+        );
 
     }
 
